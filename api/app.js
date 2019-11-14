@@ -1,16 +1,14 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var indexRouter = require('./routes/index')
+var patronsRouter = require('./routes/patrons');
+var protegesRouter = require('./routes/proteges');
+var examsRouter = require('./routes/exams');
 
-const indexRouter = require('./routes/index');
-const patronsRouter = require('./routes/patrons')
-const protegesRouter = require('./routes/proteges');
-const examsRouter = require('./routes/exams');
-
-const app = express();
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', indexRouter);
 app.use('/patrons', patronsRouter);

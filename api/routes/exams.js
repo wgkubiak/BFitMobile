@@ -1,6 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const pool = require('./../pg')
+var express = require('express');
+var router = express.Router();
+
+const Pool = require('pg').Pool
+
+const pool = new Pool({
+    user: '*',
+    host: '*',
+    database: '*',
+    password: '*',
+    port: 5432
+})
 
 router.get('/', (req, res, next) => {
     pool.query('SELECT * FROM exams',
@@ -28,4 +37,4 @@ router.get('/id/:id', (req, res, next) => {
     })
 })
 
-module.exports = router
+module.exports = router;

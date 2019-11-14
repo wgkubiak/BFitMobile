@@ -1,5 +1,3 @@
-SET CLIENT_ENCODING TO 'utf8';
-
 CREATE TYPE gender AS ENUM ('M', 'K');
 
 DROP TABLE IF EXISTS patrons;
