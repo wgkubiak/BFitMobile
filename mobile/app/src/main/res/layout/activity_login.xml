@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bglog"
-    tools:context=".MainActivity">
+    tools:context=".Controllers.global.LoginActivity">
 
     <Switch
         android:id="@+id/logRoleSwitch"
@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logRoleSwitch" />
 
     <Button
-        android:id="@+id/logCreateBtn"
+        android:id="@+id/assignProtegeBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"

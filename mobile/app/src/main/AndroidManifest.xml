@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Controllers.ptg.AddExamActivity"></activity>
+        <activity android:name=".Controllers.ptg.ProtegeSideExamsActivity" />
+        <activity android:name=".Controllers.ptr.PatronSideProtegesExamsActivity" />
+        <activity android:name=".Controllers.ptr.AssignProtegeActivity" />
+        <activity android:name=".Controllers.ptr.ProtegesListActivity" />
+        <activity android:name=".Controllers.global.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
