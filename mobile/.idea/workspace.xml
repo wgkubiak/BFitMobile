@@ -8,16 +8,15 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CUSTOM_FILTER" value="roleTxt" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0345d2c-99f6-4752-8044-4c3b1ffefcd0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/global/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/global/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/ptg/AddExamActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/ptg/AddExamActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,32 +38,36 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="76" column="38" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/global/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="397">
+              <caret line="40" column="9" selection-start-line="32" selection-start-column="42" selection-end-line="40" selection-end-column="9" />
               <folding>
-                <element signature="e#793#811#0" expanded="true" />
-                <element signature="e#1962#1980#0" expanded="true" />
-                <element signature="e#2688#2702#0" expanded="true" />
-                <element signature="e#3432#3452#0" expanded="true" />
-                <element signature="e#3877#3893#0" expanded="true" />
-                <element signature="e#4572#4588#0" expanded="true" />
+                <element signature="e#1004#1273#0" expanded="true" />
+                <element signature="e#1272#1273#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml">
           <provider selected="true" editor-type-id="android-designer2" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="141" column="35" lean-forward="true" selection-start-line="141" selection-start-column="35" selection-end-line="141" selection-end-column="35" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/global/LoginActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/ptg/AddExamActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+            <state relative-caret-position="120">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1271#1478#0" expanded="true" />
-                <element signature="e#1477#1478#0" expanded="true" />
+                <element signature="e#582#729#0" expanded="true" />
+                <element signature="e#728#729#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -100,11 +103,12 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_patron_side_proteges_exams.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_assign_protege.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/global/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/ptg/AddExamActivity.java" />
       </list>
     </option>
   </component>
@@ -119,9 +123,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -310,7 +314,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574558854001</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Working switch, refactor of XML namings">
+      <created>1574591556260</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1574591556260</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -318,7 +329,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22397892" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22727273" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -333,8 +344,8 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32938075" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.32806325" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.32806325" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32938075" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -348,7 +359,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="All needed (atm) classes, some refactor, basic activity change" />
     <MESSAGE value="Recolor and refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recolor and refactor" />
+    <MESSAGE value="Working switch, refactor of XML namings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working switch, refactor of XML namings" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bg.jpg">
@@ -400,60 +412,55 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_proteges_list.xml">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patron_side_proteges_exams.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/ptg/AddExamActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_assign_protege.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider editor-type-id="text-editor">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="76" column="38" selection-start-line="76" selection-start-column="38" selection-end-line="76" selection-end-column="38" />
-          <folding>
-            <element signature="e#793#811#0" expanded="true" />
-            <element signature="e#1962#1980#0" expanded="true" />
-            <element signature="e#2688#2702#0" expanded="true" />
-            <element signature="e#3432#3452#0" expanded="true" />
-            <element signature="e#3877#3893#0" expanded="true" />
-            <element signature="e#4572#4588#0" expanded="true" />
-          </folding>
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/global/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        <state relative-caret-position="397">
+          <caret line="40" column="9" selection-start-line="32" selection-start-column="42" selection-end-line="40" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1271#1478#0" expanded="true" />
-            <element signature="e#1477#1478#0" expanded="true" />
+            <element signature="e#1004#1273#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_exam.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="141" column="35" lean-forward="true" selection-start-line="141" selection-start-column="35" selection-end-line="141" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/patron/Controllers/ptg/AddExamActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+          <folding>
+            <element signature="e#582#729#0" expanded="true" />
+            <element signature="e#728#729#0" expanded="true" />
           </folding>
         </state>
       </provider>

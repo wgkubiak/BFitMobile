@@ -26,17 +26,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button logLoginButton = (Button) findViewById(R.id.logLoginBtn);
-        logLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openProtegesList();
-            }
-        });
 
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
         logRoleText.setText("Opiekun");
 
-        Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
+        logLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(roleTxt.equals("Podopieczny")) {
+                    openAddExam();
+                } else
+                    openProtegesList();
+            }
+        });
+
+        final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
         roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -44,11 +48,15 @@ public class LoginActivity extends AppCompatActivity {
                 logRoleText.setText(roleTxt);
             }
         });
+    }
 
+    private void openAddExam() {
+        Intent intent = new Intent(this, AddExamActivity.class);
+        startActivity(intent);
     }
 
     private void openProtegesList() {
-        Intent intent = new Intent(this, AddExamActivity.class);
+        Intent intent = new Intent(this, ProtegesListActivity.class);
         startActivity(intent);
     }
 }

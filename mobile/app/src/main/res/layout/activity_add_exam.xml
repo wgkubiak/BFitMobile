@@ -136,4 +136,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/glucoseInput" />
 
+    <TextView
+        android:id="@+id/dataSendTxt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#CD55EC50"
+        android:gravity="center"
+        android:text="POMIAR\n PRZESŁANY"
+        android:textColor="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
