@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.patron.Controllers.ptg.AddExamActivity;
 import com.patron.Controllers.ptr.ProtegesListActivity;
 import com.patron.R;
 
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void openProtegesList() {
-        Intent intent = new Intent(this, ProtegesListActivity.class);
+        Intent intent = new Intent(this, AddExamActivity.class);
         startActivity(intent);
     }
 }
