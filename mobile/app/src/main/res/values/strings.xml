@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Patron</string>
+    <string name="measures_name">POMIARY</string>
+    <string name="weight_tip">Waga kg (np. 85)</string>
+    <string name="add">DODAJ</string>
+    <string name="slash">/</string>
+    <string name="pressure_tip">Ciśnienie (np. 125/75)</string>
+    <string name="glukose_tip">Glukoza mg/dL (np. 140)</string>
+    <string name="mail">Mail</string>
+    <string name="password">Hasło</string>
+    <string name="acc_type">Rodzaj konta</string>
+    <string name="log_in">ZALOGUJ</string>
+    <string name="create_acc">STWÓRZ KONTO</string>
+    <string name="no_acc">Nie posiadasz konta?</string>
 </resources>

@@ -3,9 +3,14 @@ package com.patron.Controllers.global;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.patron.Controllers.ptg.AddExamActivity;
 import com.patron.Controllers.ptr.ProtegesListActivity;
@@ -13,6 +18,8 @@ import com.patron.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private String roleTxt = "Opiekun";
+    private String TAG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +32,19 @@ public class LoginActivity extends AppCompatActivity {
                 openProtegesList();
             }
         });
+
+        final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
+        logRoleText.setText("Opiekun");
+
+        Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
+        roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                roleTxt = isChecked ? "Podopieczny" : "Opiekun";
+                logRoleText.setText(roleTxt);
+            }
+        });
+
     }
 
     private void openProtegesList() {
