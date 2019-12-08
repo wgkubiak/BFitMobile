@@ -3,6 +3,7 @@ package com.patron.Controllers.global;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 DownloadJSON downloadJSON = new DownloadJSON();
                 downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
 
@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject jsonPart = data.getJSONObject(i);
+
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 
                         TextView mailView = (TextView) findViewById(R.id.logEmail);
                         TextView passView = (TextView) findViewById(R.id.logPassword);
@@ -64,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                         String tempMail = jsonPart.getString("patron_mail");
                         String tempPass = jsonPart.getString("patron_pass");
 
+
                         Log.i("Mail", tempMail);
                         Log.i("TV Mail", m);
 
@@ -71,13 +74,16 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("TV Pass", p);
 
                         if (tempMail.equals(m) && tempPass.equals(p)) {
+                            String patronID = jsonPart.getString("patron_id");
+
                             if (roleTxt.equals("Podopieczny")) {
                                 openAddExam();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Witaj, " + jsonPart.getString("patron_firstname") + "!",
                                         Toast.LENGTH_LONG).show();
-                                finish();
-                                openProtegesList();
+//                                finish();
+                                Log.i("patronID", patronID);
+                                openProtegesList(patronID);
                             }
                         }
                     }
@@ -110,8 +116,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openProtegesList() {
+    private void openProtegesList(String id) {
         Intent intent = new Intent(this, ProtegesListActivity.class);
+        intent.putExtra("patron_id", id);
         startActivity(intent);
     }
 
