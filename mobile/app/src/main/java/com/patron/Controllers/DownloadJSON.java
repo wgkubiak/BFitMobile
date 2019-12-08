@@ -14,6 +14,10 @@ import java.util.Iterator;
 
 public class DownloadJSON extends AsyncTask<String,Void,String> {
 
+    public static String tempMail = "";
+    public static String tempPass = "";
+    public static JSONArray tempArray;
+
     @Override
     protected String doInBackground(String... urls) {
         String result = "";
@@ -46,24 +50,27 @@ public class DownloadJSON extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        getProtege(s);
-    }
+        fetchData(s);
 
-    void getProtege(String s) {
         try{
-            //JSONObject jsonObject = new JSONObject(s);
-
-            JSONArray arr = new JSONArray(s);
-
-            for(int i = 0; i < arr.length(); i++) {
-                JSONObject jsonPart = arr.getJSONObject(i);
-                Log.i("Firstname", jsonPart.getString("protege_firstname"));
-                Log.i("Lastname", jsonPart.getString("protege_lastname"));
-                Log.i("Age", jsonPart.getString("protege_age"));
-                Log.i("ProtegePhone", jsonPart.getString("protege_phone"));
+            for(int i = 0; i < fetchData(s).length(); i++) {
+                JSONObject jsonPart = fetchData(s).getJSONObject(i);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    JSONArray fetchData(String s) {
+        try{
+            JSONArray arr = new JSONArray(s);
+
+            tempArray = arr;
+            return arr;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
         }
     }
 }
