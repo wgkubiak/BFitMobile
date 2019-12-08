@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
 
 public class DownloadJSON extends AsyncTask<String,Void,String> {
 
@@ -45,6 +46,25 @@ public class DownloadJSON extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
 
-        Log.i("JSON", s);
+        getProtege(s);
+    }
+
+    void getProtege(String s) {
+        try{
+            //JSONObject jsonObject = new JSONObject(s);
+
+            JSONArray arr = new JSONArray(s);
+
+            for(int i = 0; i < arr.length(); i++) {
+                JSONObject jsonPart = arr.getJSONObject(i);
+                Log.i("Firstname", jsonPart.getString("protege_firstname"));
+                Log.i("Lastname", jsonPart.getString("protege_lastname"));
+                Log.i("Age", jsonPart.getString("protege_age"));
+                Log.i("ProtegePhone", jsonPart.getString("protege_phone"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
+

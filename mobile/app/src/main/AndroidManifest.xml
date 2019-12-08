@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controllers.ptg.AddExamActivity"></activity>
+        <activity android:name=".Controllers.global.CreateUserActivity"></activity>
+        <activity android:name=".Controllers.ptg.AddExamActivity" />
         <activity android:name=".Controllers.ptr.PatronSideProtegesExamsActivity" />
         <activity android:name=".Controllers.ptr.AssignProtegeActivity" />
         <activity android:name=".Controllers.ptr.ProtegesListActivity" />

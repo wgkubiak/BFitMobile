@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button logLoginButton = (Button) findViewById(R.id.logLoginBtn);
+        Button swapActivityCreate = (Button) findViewById(R.id.swapActivityCreate);
+
 
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
         logRoleText.setText("Opiekun");
@@ -48,6 +50,14 @@ public class LoginActivity extends AppCompatActivity {
                 logRoleText.setText(roleTxt);
             }
         });
+
+        swapActivityCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCreateUser();
+            }
+        });
+
     }
 
     private void openAddExam() {
@@ -57,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void openProtegesList() {
         Intent intent = new Intent(this, ProtegesListActivity.class);
+        startActivity(intent);
+    }
+
+    private void openCreateUser() {
+        Intent intent = new Intent(this, CreateUserActivity.class);
         startActivity(intent);
     }
 }
