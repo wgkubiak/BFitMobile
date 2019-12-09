@@ -36,9 +36,10 @@ public class ProtegesAdapter extends RecyclerView.Adapter<ProtegesAdapter.Proteg
     public void onBindViewHolder(@NonNull ProtegesViewHolder holder, int position) {
         Protege protege = protegesList.get(position);
 
-        holder.textViewFirstname.setText(protege.getFirstname());
-        holder.textViewLastname.setText(protege.getLastname());
-        holder.textViewPhone.setText("Kontakt: " + protege.getPhone());
+        holder.textViewName.setText(protege.getFirstname() + " " + protege.getLastname());
+        holder.textViewWeight.setText(protege.getWeight());
+        holder.textViewGlucose.setText(protege.getGlucose());
+        holder.textViewPressure.setText(protege.getPressure());
     }
 
     @Override
@@ -48,14 +49,15 @@ public class ProtegesAdapter extends RecyclerView.Adapter<ProtegesAdapter.Proteg
 
     class ProtegesViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewFirstname, textViewLastname, textViewPhone;
+        TextView textViewName, textViewWeight, textViewGlucose, textViewPressure;
 
         public ProtegesViewHolder(View v) {
             super(v);
 
-            textViewFirstname = v.findViewById(R.id.textViewFirstname);
-            textViewLastname = v.findViewById(R.id.textViewLastname);
-            textViewPhone = v.findViewById(R.id.textViewPhone);
+            textViewName = v.findViewById(R.id.textViewName);
+            textViewWeight = v.findViewById(R.id.textViewWeight);
+            textViewGlucose = v.findViewById(R.id.textViewGlucose);
+            textViewPressure = v.findViewById(R.id.textViewPressure);
         }
     }
 }

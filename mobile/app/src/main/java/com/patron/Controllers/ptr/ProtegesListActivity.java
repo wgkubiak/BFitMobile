@@ -1,15 +1,19 @@
 package com.patron.Controllers.ptr;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,66 +53,46 @@ public class ProtegesListActivity extends AppCompatActivity {
         protegeList.add(
                 new Protege(
                         "1",
-            "Jan",
-            "Wojciech",
-            "723823123"
+                        "Janusz",
+                        "Muzykant",
+                        "149",
+                        "70",
+                        "145/78"
                 )
         );
 
         protegeList.add(
                 new Protege(
                         "1",
-                        "Jan",
-                        "Wojciech",
-                        "723823123"
+                        "Anna",
+                        "Mariant",
+                        "57",
+                        "87",
+                        "125/71"
                 )
         );
 
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Jan",
-                        "Wojciech",
-                        "723823123"
-                )
-        );
-
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Jan",
-                        "Wojciech",
-                        "723823123"
-                )
-        );
-
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Jan",
-                        "Wojciech",
-                        "723823123"
-                )
-        );
-
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Jan",
-                        "Wojciech",
-                        "723823123"
-                )
-        );
-
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Jan",
-                        "Wojciech",
-                        "723823123"
-                )
-        );
-
+        // TODO: Put this into activity with list of measures
+//        Button addExamBtn = (Button) findViewById(R.id.addExamBtn);
+//        addExamBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+//
+//        new AlertDialog.Builder(this)
+//                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .setTitle("Chcesz usunąć podopiecznego!")
+//                .setMessage("Czy jesteś pewny/a?")
+//                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(ProtegesListActivity.this, "Podopieczny usunięty!", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .setNegativeButton("Nie", null)
+//                .show();
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
@@ -124,14 +108,18 @@ public class ProtegesListActivity extends AppCompatActivity {
                 String protegeID = jsonPart.getString("protege_id");
                 String firstName = jsonPart.getString("protege_firstname");
                 String lastName = jsonPart.getString("protege_lastname");
-                String phone = jsonPart.getString("protege_phone");
+                String weight = jsonPart.getString("exam_weight");
+                String glucose = jsonPart.getString("exam_glucose");
+                String pressure = jsonPart.getString("exam_pressure");
 
                 protegeList.add(
                         new Protege(
-                        protegeID,
-                        firstName,
-                        lastName,
-                        phone
+                                protegeID,
+                                firstName,
+                                lastName,
+                                weight,
+                                glucose,
+                                pressure
                     )
                 );
 
