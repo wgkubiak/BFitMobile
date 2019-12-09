@@ -13,7 +13,21 @@ import java.net.URL;
 
 public class DownloadJSON extends AsyncTask<String,Void,String> {
 
+    private JSONArray arr;
     public static JSONArray tempArray;
+
+    public DownloadJSON() {}
+
+    public DownloadJSON(JSONArray arr) {
+        this.arr = arr;
+    }
+
+    public JSONArray getArray() {
+        return arr;
+    }
+
+
+    //public static JSONArray tempArray;
 
     @Override
     protected String doInBackground(String... urls) {
@@ -49,6 +63,8 @@ public class DownloadJSON extends AsyncTask<String,Void,String> {
 
         try{
             tempArray = new JSONArray(s);
+
+            arr = new JSONArray(s);
         } catch (Exception e) {
             e.printStackTrace();
         }

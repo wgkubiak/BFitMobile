@@ -12,52 +12,62 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/lightPrimary"
             android:padding="8dp">
 
 
             <TextView
                 android:id="@+id/textViewFirstname"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_toEndOf="@+id/removeProtege"
+                android:layout_toRightOf="@+id/removeProtege"
+                android:gravity="right"
+                android:text="Wojtek"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                android:textColor="#000000" />
+                android:textColor="@color/textIcons"
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/textViewLastname"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewFirstname"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="-30dp"
+                android:layout_marginLeft="-30dp"
                 android:layout_marginTop="5dp"
-                android:text="13.3 Inch, 256 GB"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                android:layout_toEndOf="@+id/removeProtege"
+                android:layout_toRightOf="@+id/removeProtege"
+                android:gravity="right"
+                android:text="Kubiak"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/textIcons"
+                android:textSize="22dp" />
 
             <TextView
-                android:id="@+id/textViewAge"
-                android:layout_width="wrap_content"
+                android:id="@+id/textViewPhone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewLastname"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/colorPrimary"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:text="4.7"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="726823405"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/lightPrimary"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewAge"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="INR 56990"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:textStyle="bold" />
+            <Button
+                android:id="@+id/removeProtege"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="258dp"
+                android:layout_marginRight="258dp"
+                android:background="#E05555"
+                android:text="x" />
 
         </RelativeLayout>
 

@@ -7,7 +7,7 @@
     tools:context=".Controllers.ptr.PatronSideProtegesExamsActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="409dp"
+        android:layout_width="700dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"

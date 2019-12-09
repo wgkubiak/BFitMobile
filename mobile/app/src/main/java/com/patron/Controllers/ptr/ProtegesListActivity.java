@@ -48,59 +48,66 @@ public class ProtegesListActivity extends AppCompatActivity {
 
         protegeList.add(
                 new Protege(
-                    "1",
-                    "25",
-                    "Wojtek",
-                    "Kubiak",
-                    "726582123",
-                    "M"
+                        "1",
+            "Jan",
+            "Wojciech",
+            "723823123"
                 )
         );
 
         protegeList.add(
                 new Protege(
                         "1",
-                        "25",
-                        "Wojtek",
-                        "Kubiak",
-                        "726582123",
-                        "M"
+                        "Jan",
+                        "Wojciech",
+                        "723823123"
                 )
         );
 
         protegeList.add(
                 new Protege(
                         "1",
-                        "25",
-                        "Wojtek",
-                        "Kubiak",
-                        "726582123",
-                        "M"
+                        "Jan",
+                        "Wojciech",
+                        "723823123"
                 )
         );
 
         protegeList.add(
                 new Protege(
                         "1",
-                        "25",
-                        "Wojtek",
-                        "Kubiak",
-                        "726582123",
-                        "M"
+                        "Jan",
+                        "Wojciech",
+                        "723823123"
                 )
         );
 
         protegeList.add(
                 new Protege(
                         "1",
-                        "25",
-                        "Wojtek",
-                        "Kubiak",
-                        "726582123",
-                        "M"
+                        "Jan",
+                        "Wojciech",
+                        "723823123"
                 )
         );
 
+        protegeList.add(
+                new Protege(
+                        "1",
+                        "Jan",
+                        "Wojciech",
+                        "723823123"
+                )
+        );
+
+        protegeList.add(
+                new Protege(
+                        "1",
+                        "Jan",
+                        "Wojciech",
+                        "723823123"
+                )
+        );
 
 
         DownloadJSON downloadJSON = new DownloadJSON();
@@ -110,13 +117,24 @@ public class ProtegesListActivity extends AppCompatActivity {
         try {
             for(int i = 0; i < data.length(); i++) {
                 JSONObject jsonPart = data.getJSONObject(i);
-                //TODO: Data downloaded before activity starts
+                //TODO: Array the same as previous? Not changing
+
+
                 Log.i("ProtegeListPatron ID", id);
+                String protegeID = jsonPart.getString("protege_id");
                 String firstName = jsonPart.getString("protege_firstname");
                 String lastName = jsonPart.getString("protege_lastname");
+                String phone = jsonPart.getString("protege_phone");
 
-                Log.i("Firstname", firstName);
-                Log.i("Lastname", lastName);
+                protegeList.add(
+                        new Protege(
+                        protegeID,
+                        firstName,
+                        lastName,
+                        phone
+                    )
+                );
+
             }
         } catch(Exception e) {
             e.printStackTrace();

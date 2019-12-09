@@ -38,8 +38,7 @@ public class ProtegesAdapter extends RecyclerView.Adapter<ProtegesAdapter.Proteg
 
         holder.textViewFirstname.setText(protege.getFirstname());
         holder.textViewLastname.setText(protege.getLastname());
-        holder.textViewAge.setText(protege.getAge());
-        holder.textViewPhone.setText(protege.getPhone());
+        holder.textViewPhone.setText("Kontakt: " + protege.getPhone());
     }
 
     @Override
@@ -49,16 +48,14 @@ public class ProtegesAdapter extends RecyclerView.Adapter<ProtegesAdapter.Proteg
 
     class ProtegesViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewFirstname, textViewLastname, textViewAge, textViewPhone;
+        TextView textViewFirstname, textViewLastname, textViewPhone;
 
         public ProtegesViewHolder(View v) {
             super(v);
 
             textViewFirstname = v.findViewById(R.id.textViewFirstname);
             textViewLastname = v.findViewById(R.id.textViewLastname);
-            textViewAge = v.findViewById(R.id.textViewAge);
             textViewPhone = v.findViewById(R.id.textViewPhone);
-
         }
     }
 }

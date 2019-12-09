@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_login);
 
         Button logLoginButton = (Button) findViewById(R.id.logLoginBtn);
@@ -45,14 +47,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 DownloadJSON downloadJSON = new DownloadJSON();
                 downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
-
                 JSONArray data = DownloadJSON.tempArray;
 
                 try {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject jsonPart = data.getJSONObject(i);
-
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 
                         TextView mailView = (TextView) findViewById(R.id.logEmail);
                         TextView passView = (TextView) findViewById(R.id.logPassword);
@@ -66,9 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                         String tempMail = jsonPart.getString("patron_mail");
                         String tempPass = jsonPart.getString("patron_pass");
 
+                        boolean equality = tempMail.equals(m);
 
                         Log.i("Mail", tempMail);
                         Log.i("TV Mail", m);
+                        Log.i("Equal: ", Boolean.toString(equality));
 
                         Log.i("Pass", tempPass);
                         Log.i("TV Pass", p);
@@ -85,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.i("patronID", patronID);
                                 openProtegesList(patronID);
                             }
+                        } else if (tempMail.equals(m) == false || tempPass.equals(p) == false ){
+                            Toast.makeText(getApplicationContext(), "Błędne dane! Spróbuj ponownie!",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 } catch (Exception e) {
