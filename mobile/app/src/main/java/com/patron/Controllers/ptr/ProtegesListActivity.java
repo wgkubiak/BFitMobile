@@ -1,11 +1,16 @@
 package com.patron.Controllers.ptr;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,9 +20,17 @@ import com.patron.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 // TODO: List of proteges based on patron id
 public class ProtegesListActivity extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    ProtegesAdapter protegesAdapter;
+
+    List<Protege> protegeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +41,70 @@ public class ProtegesListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_proteges_list);
 
+        protegeList = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        protegeList.add(
+                new Protege(
+                    "1",
+                    "25",
+                    "Wojtek",
+                    "Kubiak",
+                    "726582123",
+                    "M"
+                )
+        );
+
+        protegeList.add(
+                new Protege(
+                        "1",
+                        "25",
+                        "Wojtek",
+                        "Kubiak",
+                        "726582123",
+                        "M"
+                )
+        );
+
+        protegeList.add(
+                new Protege(
+                        "1",
+                        "25",
+                        "Wojtek",
+                        "Kubiak",
+                        "726582123",
+                        "M"
+                )
+        );
+
+        protegeList.add(
+                new Protege(
+                        "1",
+                        "25",
+                        "Wojtek",
+                        "Kubiak",
+                        "726582123",
+                        "M"
+                )
+        );
+
+        protegeList.add(
+                new Protege(
+                        "1",
+                        "25",
+                        "Wojtek",
+                        "Kubiak",
+                        "726582123",
+                        "M"
+                )
+        );
+
+
+
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
-
         JSONArray data = DownloadJSON.tempArray;
 
         try {
@@ -47,5 +121,8 @@ public class ProtegesListActivity extends AppCompatActivity {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        protegesAdapter = new ProtegesAdapter(this, protegeList);
+        recyclerView.setAdapter(protegesAdapter);
     }
 }
