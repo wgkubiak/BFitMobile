@@ -1,22 +1,14 @@
 package com.patron.Controllers.ptr;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.patron.Controllers.DownloadJSON;
 import com.patron.R;
@@ -25,7 +17,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 // TODO: List of proteges based on patron id
@@ -50,29 +41,55 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Janusz",
-                        "Muzykant",
-                        "149",
-                        "70",
-                        "145/78"
-                )
-        );
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
 
-        protegeList.add(
-                new Protege(
-                        "1",
-                        "Anna",
-                        "Mariant",
-                        "57",
-                        "87",
-                        "125/71"
-                )
-        );
 
-        // TODO: Put this into activity with list of measures
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                JSONArray data = DownloadJSON.tempArray;
+                try {
+                    for(int i = 0; i < DownloadJSON.tempArray.length(); i++) {
+
+                        JSONObject jsonPart = data.getJSONObject(i);
+                        //TODO: try running before downloadJSON.execute
+
+                        Log.i("ProtegeListPatron ID", id);
+                        String protegeID = jsonPart.getString("protege_id");
+                        String firstName = jsonPart.getString("protege_firstname");
+                        String lastName = jsonPart.getString("protege_lastname");
+                        String weight = "55";
+                        String glucose = "99";
+                        String pressure = "123/23";
+
+                        protegeList.add(
+                                new Protege(
+                                        protegeID,
+                                        firstName,
+                                        lastName,
+                                        weight,
+                                        glucose,
+                                        pressure
+                                )
+                        );
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
+                recyclerView.setAdapter(protegesAdapter);
+            }
+        }, 3000);
+    }
+}
+
+
+// TODO: Put this into activity with list of measures
+
 //        Button addExamBtn = (Button) findViewById(R.id.addExamBtn);
 //        addExamBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -94,41 +111,25 @@ public class ProtegesListActivity extends AppCompatActivity {
 //                .setNegativeButton("Nie", null)
 //                .show();
 
-        DownloadJSON downloadJSON = new DownloadJSON();
-        downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
-        JSONArray data = DownloadJSON.tempArray;
 
-        try {
-            for(int i = 0; i < data.length(); i++) {
-                JSONObject jsonPart = data.getJSONObject(i);
-                //TODO: Array the same as previous? Not changing
-
-
-                Log.i("ProtegeListPatron ID", id);
-                String protegeID = jsonPart.getString("protege_id");
-                String firstName = jsonPart.getString("protege_firstname");
-                String lastName = jsonPart.getString("protege_lastname");
-                String weight = jsonPart.getString("exam_weight");
-                String glucose = jsonPart.getString("exam_glucose");
-                String pressure = jsonPart.getString("exam_pressure");
-
-                protegeList.add(
-                        new Protege(
-                                protegeID,
-                                firstName,
-                                lastName,
-                                weight,
-                                glucose,
-                                pressure
-                    )
-                );
-
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        protegesAdapter = new ProtegesAdapter(this, protegeList);
-        recyclerView.setAdapter(protegesAdapter);
-    }
-}
+//        protegeList.add(
+//                new Protege(
+//                        "1",
+//                        "Janusz",
+//                        "Muzykant",
+//                        "149",
+//                        "70",
+//                        "145/78"
+//                )
+//        );
+//
+//        protegeList.add(
+//                new Protege(
+//                        "1",
+//                        "Anna",
+//                        "Mariant",
+//                        "57",
+//                        "87",
+//                        "125/71"
+//                )
+//        );

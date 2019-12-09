@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     private void openProtegesList(String id) {
         Intent intent = new Intent(this, ProtegesListActivity.class);
         intent.putExtra("patron_id", id);
+
         startActivity(intent);
     }
 
