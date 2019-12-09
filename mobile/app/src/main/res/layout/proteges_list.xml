@@ -2,18 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_container"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="12dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:layout_height="140dp"
+            android:background="@drawable/rounded_container"
             android:padding="8dp">
 
 
@@ -21,7 +20,8 @@
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:text="Wojciech Kubiak"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -30,57 +30,61 @@
 
             <TextView
                 android:id="@+id/textViewWeight"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_width="125dp"
+                android:layout_height="28dp"
                 android:layout_below="@+id/textViewName"
-                android:layout_alignStart="@+id/textViewName"
-                android:layout_alignLeft="@+id/textViewName"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="12dp"
-                android:background="@android:color/white"
+                android:layout_marginTop="28dp"
+                android:background="@color/colorAccent"
                 android:gravity="center"
                 android:text="115.7"
-                android:textColor="@color/secondaryText"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewPressure"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="28dp"
                 android:layout_below="@+id/textViewName"
                 android:layout_alignEnd="@+id/textViewName"
                 android:layout_alignRight="@+id/textViewName"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="28dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginRight="0dp"
-                android:background="@android:color/white"
+                android:layout_toEndOf="@+id/textViewGlucose"
+                android:layout_toRightOf="@+id/textViewGlucose"
+                android:background="@color/failRed"
                 android:gravity="center"
                 android:text="145/75"
-                android:textColor="@color/secondaryText"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewGlucose"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_width="125dp"
+                android:layout_height="28dp"
                 android:layout_below="@+id/textViewName"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="132dp"
-                android:layout_marginRight="132dp"
-                android:background="@android:color/white"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="28dp"
+                android:layout_toEndOf="@+id/textViewWeight"
+                android:layout_toRightOf="@+id/textViewWeight"
+                android:background="@color/divider"
                 android:gravity="center"
                 android:text="79"
-                android:textColor="@color/secondaryText"
+                android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
 </LinearLayout>
