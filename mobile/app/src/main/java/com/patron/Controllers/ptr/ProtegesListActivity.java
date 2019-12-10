@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 import com.patron.Controllers.DownloadJSON;
@@ -28,6 +29,7 @@ public class ProtegesListActivity extends AppCompatActivity {
     ProtegesAdapter protegesAdapter;
     List<Protege> protegeList;
     ProgressBar progressBar;
+    TextView loadingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,26 +116,3 @@ public class ProtegesListActivity extends AppCompatActivity {
 //                })
 //                .setNegativeButton("Nie", null)
 //                .show();
-
-
-//        protegeList.add(
-//                new Protege(
-//                        "1",
-//                        "Janusz",
-//                        "Muzykant",
-//                        "149",
-//                        "70",
-//                        "145/78"
-//                )
-//        );
-//
-//        protegeList.add(
-//                new Protege(
-//                        "1",
-//                        "Anna",
-//                        "Mariant",
-//                        "57",
-//                        "87",
-//                        "125/71"
-//                )
-//        );

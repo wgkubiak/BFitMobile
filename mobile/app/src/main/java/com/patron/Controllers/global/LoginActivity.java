@@ -6,16 +6,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.ptg.AddExamActivity;
+import com.patron.Controllers.ptr.Protege;
+import com.patron.Controllers.ptr.ProtegesAdapter;
 import com.patron.Controllers.ptr.ProtegesListActivity;
 import com.patron.R;
 
@@ -35,60 +39,63 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        Button logLoginButton = (Button) findViewById(R.id.logLoginBtn);
-        Button swapActivityCreate = (Button) findViewById(R.id.swapActivityCreate);
-
+        final Button logLoginButton = (Button) findViewById(R.id.logLoginBtn);
+        final Button swapActivityCreate = (Button) findViewById(R.id.swapActivityCreate);
+        final TextView mailView = (TextView) findViewById(R.id.logEmail);
+        final TextView passView = (TextView) findViewById(R.id.logPassword);
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
+        final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
+        final TextView logInfo = (TextView) findViewById(R.id.logNoAccInfo);
+        final ProgressBar logProgress = (ProgressBar) findViewById(R.id.logProgress);
+
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
+
         logRoleText.setText("Opiekun");
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logLoginButton.setVisibility(View.VISIBLE);
+                swapActivityCreate.setVisibility(View.VISIBLE);
+                mailView.setVisibility(View.VISIBLE);
+                passView.setVisibility(View.VISIBLE);
+                logRoleText.setVisibility(View.VISIBLE);
+                roleSwitch.setVisibility(View.VISIBLE);
+                logInfo.setVisibility(View.VISIBLE);
+                logProgress.setVisibility(View.GONE);
+            }
+        }, 3000);
+
+
 
         logLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                DownloadJSON downloadJSON = new DownloadJSON();
-                downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
                 JSONArray data = DownloadJSON.tempArray;
-
                 try {
                     for (int i = 0; i < data.length(); i++) {
                         JSONObject jsonPart = data.getJSONObject(i);
-
-                        TextView mailView = (TextView) findViewById(R.id.logEmail);
-                        TextView passView = (TextView) findViewById(R.id.logPassword);
 
                         String m = mailView.getText().toString();
                         String p = passView.getText().toString();
 
                         m.replace("\n", "");
 
-
                         String tempMail = jsonPart.getString("patron_mail");
                         String tempPass = jsonPart.getString("patron_pass");
-
-                        boolean equality = tempMail.equals(m);
-
-                        Log.i("Mail", tempMail);
-                        Log.i("TV Mail", m);
-                        Log.i("Equal: ", Boolean.toString(equality));
-
-                        Log.i("Pass", tempPass);
-                        Log.i("TV Pass", p);
 
                         if (tempMail.equals(m) && tempPass.equals(p)) {
                             String patronID = jsonPart.getString("patron_id");
 
                             if (roleTxt.equals("Podopieczny")) {
+                                finish();
                                 openAddExam();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Witaj, " + jsonPart.getString("patron_firstname") + "!",
-                                        Toast.LENGTH_LONG).show();
-//                                finish();
-                                Log.i("patronID", patronID);
+                                finish();
                                 openProtegesList(patronID);
                             }
-                        } else if (tempMail.equals(m) == false || tempPass.equals(p) == false ){
-                            Toast.makeText(getApplicationContext(), "Błędne dane! Spróbuj ponownie!",
-                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 } catch (Exception e) {
@@ -97,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
         roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
