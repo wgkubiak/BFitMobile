@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 
 import com.patron.Controllers.DownloadJSON;
@@ -24,8 +26,8 @@ public class ProtegesListActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ProtegesAdapter protegesAdapter;
-
     List<Protege> protegeList;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,8 @@ public class ProtegesListActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                progressBar = (ProgressBar) findViewById(R.id.progressBar);
+                progressBar.setVisibility(View.GONE);
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
             }
