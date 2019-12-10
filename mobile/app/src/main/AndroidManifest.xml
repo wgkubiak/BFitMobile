@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label=""
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/main_ico_feather"
+        android:label="Patron"
+        android:roundIcon="@mipmap/main_ico_feather_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Controllers.global.CreateUserActivity"></activity>
