@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
 import com.patron.Controllers.DownloadJSON;
+import com.patron.Controllers.ptg.AddExamActivity;
 import com.patron.R;
 
 import org.json.JSONArray;
@@ -29,7 +31,8 @@ public class ProtegesListActivity extends AppCompatActivity {
     ProtegesAdapter protegesAdapter;
     List<Protege> protegeList;
     ProgressBar progressBar;
-    TextView loadingText;
+    Button assignProtegeActivityBtn;
+    Button delBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +47,18 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        assignProtegeActivityBtn = (Button) findViewById(R.id.assignActivityBtn);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
 
+
+        assignProtegeActivityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAssignProtege(id);
+            }
+        });
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -86,10 +97,18 @@ public class ProtegesListActivity extends AppCompatActivity {
 
                 progressBar = (ProgressBar) findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.GONE);
+                assignProtegeActivityBtn.setVisibility(View.VISIBLE);
+
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
             }
         }, 3000);
+    }
+
+    private void openAssignProtege(String id) {
+        Intent intent = new Intent(this, AssignProtegeActivity.class);
+        intent.putExtra("patron_id", id);
+        startActivity(intent);
     }
 }
 
