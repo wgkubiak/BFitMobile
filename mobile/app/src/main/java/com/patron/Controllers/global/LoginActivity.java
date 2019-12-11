@@ -45,15 +45,17 @@ public class LoginActivity extends AppCompatActivity {
         final TextView passView = (TextView) findViewById(R.id.logPassword);
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
         final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
-        final TextView logInfo = (TextView) findViewById(R.id.logNoAccInfo);
+        //final TextView logInfo = (TextView) findViewById(R.id.logNoAccInfo);
         final ProgressBar logProgress = (ProgressBar) findViewById(R.id.logProgress);
-        final ImageView logo = (ImageView) findViewById(R.id.logo);
+        //final ImageView logo = (ImageView) findViewById(R.id.logo);
         final TextView loadingInfo = (TextView) findViewById(R.id.loadingInfo);
+        final ImageView whiteBg = (ImageView) findViewById(R.id.whiteLoginBg);
+        final TextView header = (TextView) findViewById(R.id.textViewLoginHeader);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
 
-        logRoleText.setText("Opiekun");
+        logRoleText.setText("OPIEKUN");
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -65,9 +67,11 @@ public class LoginActivity extends AppCompatActivity {
                 passView.setVisibility(View.VISIBLE);
                 logRoleText.setVisibility(View.VISIBLE);
                 roleSwitch.setVisibility(View.VISIBLE);
-                logInfo.setVisibility(View.VISIBLE);
+                header.setVisibility(View.VISIBLE);
+                whiteBg.setVisibility(View.VISIBLE);
+                //logInfo.setVisibility(View.VISIBLE);
                 loadingInfo.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
                 logProgress.setVisibility(View.GONE);
             }
         }, 5000);
@@ -93,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (tempMail.equals(m) && tempPass.equals(p)) {
                             String patronID = jsonPart.getString("patron_id");
 
-                            if (roleTxt.equals("Podopieczny")) {
+                            if (roleTxt.equals("PODOPIECZNY")) {
                                 finish();
                                 openAddExam();
                             } else {
@@ -111,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                roleTxt = isChecked ? "Podopieczny" : "Opiekun";
+                roleTxt = isChecked ? "PODOPIECZNY" : "OPIEKUN";
                 logRoleText.setText(roleTxt);
             }
         });

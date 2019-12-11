@@ -11,7 +11,7 @@
                     android:radius="8dp">
                 </corners>
                 <solid
-                    android:color="@color/containerDarkT">
+                    android:color="#ECC7C4C4">
                 </solid>
             </shape>
         </item>

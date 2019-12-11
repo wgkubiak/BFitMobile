@@ -4,20 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/bglog"
     tools:context=".Controllers.global.LoginActivity">
 
+    <TextView
+        android:id="@+id/textViewLoginHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="ZALOGUJ"
+        android:textSize="82sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/whiteLoginBg"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="272dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="108dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/lightPrimary" />
+        app:srcCompat="@android:color/white"
+        tools:visibility="visible" />
 
     <Switch
         android:id="@+id/logRoleSwitch"
@@ -33,19 +52,22 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logRoleText" />
+        app:layout_constraintTop_toBottomOf="@+id/logRoleText"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/logRoleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/lightPrimary"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/secondaryText"
         android:textSize="32sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/whiteLoginBg"
+        tools:text="OPIEKUN"
+        tools:visibility="visible" />
 
     <EditText
         android:id="@+id/logPassword"
@@ -56,7 +78,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:background="#99FFFFFF"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_container"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/password"
@@ -64,9 +87,11 @@
         android:textColor="@color/textIcons"
         android:textColorHint="@color/secondaryText"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logEmail" />
+        app:layout_constraintBottom_toTopOf="@+id/logLoginBtn"
+        app:layout_constraintEnd_toEndOf="@+id/whiteLoginBg"
+        app:layout_constraintStart_toStartOf="@+id/whiteLoginBg"
+        app:layout_constraintTop_toBottomOf="@+id/logEmail"
+        tools:visibility="visible" />
 
     <EditText
         android:id="@+id/logEmail"
@@ -77,7 +102,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:background="#99FFFFFF"
+        android:background="@drawable/rounded_container"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/mail"
@@ -85,9 +110,10 @@
         android:textColor="@color/textIcons"
         android:textColorHint="@color/secondaryText"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/whiteLoginBg"
+        app:layout_constraintStart_toStartOf="@+id/whiteLoginBg"
+        app:layout_constraintTop_toBottomOf="@+id/logRoleSwitch"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/swapActivityCreate"
@@ -95,46 +121,37 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
-        android:background="@drawable/rounded_btn"
+        android:layout_marginBottom="16dp"
+        android:background="@color/containerDarkT"
         android:text="@string/create_acc"
-        android:textColor="@color/lightPrimary"
+        android:textColor="@android:color/white"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logNoAccInfo" />
-
-    <TextView
-        android:id="@+id/logNoAccInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/no_acc"
-        android:textColor="@color/colorPrimary"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logLoginBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/logLoginBtn"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/logLoginBtn"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
         android:background="@drawable/rounded_btn"
         android:text="@string/log_in"
-        android:textColor="@color/lightPrimary"
+        android:textColor="@android:color/white"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/logProgress"
@@ -145,19 +162,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="96dp"
-        app:layout_constraintBottom_toTopOf="@+id/logProgress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23000002"
-        app:srcCompat="@drawable/logo_knife" />
+        tools:visibility="invisible" />
 
     <TextView
         android:id="@+id/loadingInfo"
@@ -167,9 +173,36 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="Ładowanie aplikacji . . ."
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/logProgress"
+        tools:visibility="invisible" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:background="#00FFFFFF"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/whiteLoginBg"
+        app:layout_constraintEnd_toEndOf="@+id/whiteLoginBg"
+        app:layout_constraintStart_toStartOf="@+id/whiteLoginBg" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/whiteLoginBg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
