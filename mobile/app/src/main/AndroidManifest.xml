@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/main_ico_feather"
+        android:icon="@mipmap/leaf_ico"
         android:label="Patron"
-        android:roundIcon="@mipmap/main_ico_feather_round"
+        android:roundIcon="@mipmap/leaf_ico_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Controllers.global.CreateUserActivity"></activity>

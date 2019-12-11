@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
         final TextView logInfo = (TextView) findViewById(R.id.logNoAccInfo);
         final ProgressBar logProgress = (ProgressBar) findViewById(R.id.logProgress);
+        final ImageView logo = (ImageView) findViewById(R.id.logo);
+        final TextView loadingInfo = (TextView) findViewById(R.id.loadingInfo);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
@@ -63,9 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                 logRoleText.setVisibility(View.VISIBLE);
                 roleSwitch.setVisibility(View.VISIBLE);
                 logInfo.setVisibility(View.VISIBLE);
+                loadingInfo.setVisibility(View.GONE);
+                logo.setVisibility(View.GONE);
                 logProgress.setVisibility(View.GONE);
             }
-        }, 3000);
+        }, 5000);
 
 
 
