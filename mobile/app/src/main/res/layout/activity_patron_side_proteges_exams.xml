@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.ptr.PatronSideProtegesExamsActivity"
-    android:background="@drawable/blackbg">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Controllers.ptr.PatronSideProtegesExamsActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"

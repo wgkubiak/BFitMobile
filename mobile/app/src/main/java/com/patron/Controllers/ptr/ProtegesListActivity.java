@@ -52,7 +52,6 @@ public class ProtegesListActivity extends AppCompatActivity {
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
 
-
         assignProtegeActivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +66,7 @@ public class ProtegesListActivity extends AppCompatActivity {
 
                 JSONArray data = DownloadJSON.tempArray;
                 try {
-                    for(int i = 0; i < DownloadJSON.tempArray.length(); i++) {
+                    for(int i = 0; i < data.length(); i++) {    // < DownloadJSON.tempArray
 
                         JSONObject jsonPart = data.getJSONObject(i);
                         //TODO: try running before downloadJSON.execute
@@ -76,9 +75,23 @@ public class ProtegesListActivity extends AppCompatActivity {
                         String protegeID = jsonPart.getString("protege_id");
                         String firstName = jsonPart.getString("protege_firstname");
                         String lastName = jsonPart.getString("protege_lastname");
-                        String weight = "55";
-                        String glucose = "99";
-                        String pressure = "123/23";
+
+                        String weight, glucose, pressure;
+
+                        // In case if there is no weight input, temporally hardcoded data after catch
+                        try {
+                            weight = jsonPart.getString("exam_weight");
+                            glucose = jsonPart.getString("exam_glucose");
+                            pressure = jsonPart.getString("exam_pressure");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                            weight = "55";
+                            glucose = "99";
+                            pressure = "123/23";
+                        }
+
+
 
                         protegeList.add(
                                 new Protege(
