@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.patron.R;
 
-import org.w3c.dom.Text;
-
 public class CreateUserActivity extends AppCompatActivity {
 
     private String roleTxt = "Opiekun";
@@ -44,7 +42,7 @@ public class CreateUserActivity extends AppCompatActivity {
         TextView firstnameInput = (TextView) findViewById(R.id.firstnamePtrInput);
         TextView secondnameInput = (TextView) findViewById(R.id.lastnamePtrInput);
         TextView phoneInput = (TextView) findViewById(R.id.phonePtrInput);
-        Button swapActivityCreateBtn = (Button) findViewById(R.id.swapActivityCreate);
+        Button swapActivityCreateBtn = (Button) findViewById(R.id.createAccHeader);
 
         if(option) {
             mailInput.setVisibility(View.VISIBLE);

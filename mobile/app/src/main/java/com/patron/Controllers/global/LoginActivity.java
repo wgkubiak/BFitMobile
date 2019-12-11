@@ -3,11 +3,8 @@ package com.patron.Controllers.global;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -15,18 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.ptg.AddExamActivity;
-import com.patron.Controllers.ptr.Protege;
-import com.patron.Controllers.ptr.ProtegesAdapter;
 import com.patron.Controllers.ptr.ProtegesListActivity;
 import com.patron.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         final Button logLoginButton = (Button) findViewById(R.id.logLoginBtn);
-        final Button swapActivityCreate = (Button) findViewById(R.id.swapActivityCreate);
+        final Button swapActivityCreate = (Button) findViewById(R.id.createAccHeader);
         final TextView mailView = (TextView) findViewById(R.id.logEmail);
         final TextView passView = (TextView) findViewById(R.id.logPassword);
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
