@@ -86,9 +86,9 @@ public class ProtegesListActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
 
-                            weight = "55";
-                            glucose = "99";
-                            pressure = "123/23";
+                            weight = "BD";
+                            glucose = "BD";
+                            pressure = "BD";
                         }
 
 

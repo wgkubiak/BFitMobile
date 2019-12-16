@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/textViewPressure"
-                android:layout_width="75dp"
+                android:layout_width="135dp"
                 android:layout_height="32dp"
                 android:layout_below="@+id/textViewWeight"
                 android:layout_marginStart="14dp"
@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/textViewGlucose"
-                android:layout_width="75dp"
+                android:layout_width="135dp"
                 android:layout_height="32dp"
                 android:layout_below="@+id/textViewPressure"
                 android:layout_marginStart="14dp"
@@ -105,7 +105,7 @@
 
             <TextView
                 android:id="@+id/textViewWeight"
-                android:layout_width="75dp"
+                android:layout_width="135dp"
                 android:layout_height="32dp"
                 android:layout_below="@+id/textViewName"
                 android:layout_marginStart="14dp"

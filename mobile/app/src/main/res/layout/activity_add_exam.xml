@@ -4,163 +4,146 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/bglog"
     tools:context=".Controllers.ptg.AddExamActivity">
 
     <TextView
-        android:id="@+id/weightTip"
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbarThumbHorizontal="@color/lightPrimary"
-        android:text="@string/weight_tip"
-        android:textColor="@color/lightPrimary"
+        android:text="WPIS"
+        android:textSize="82sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/weightInput"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="224dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="132dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightInput" />
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.982"
+        app:srcCompat="@android:color/white" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="28dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/weightInput"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@drawable/rounded_container"
         android:ems="10"
         android:gravity="center"
-        android:inputType="number"
-        android:textColor="@color/lightPrimary"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/examsHeader" />
+        android:hint="Waga [kg]"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <EditText
         android:id="@+id/glucoseInput"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:background="@drawable/rounded_container"
         android:ems="10"
         android:gravity="center"
+        android:hint="Glukoza"
         android:inputType="number"
-        android:textColor="@color/lightPrimary"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/weightInput" />
-
-    <TextView
-        android:id="@+id/examsHeader"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:gravity="center"
-        android:text="@string/measures_name"
-        android:textColor="@color/lightPrimary"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/pressureInput1"
-        android:layout_width="250px"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/rounded_container"
         android:ems="10"
         android:gravity="center"
+        android:hint="Skurczowe"
         android:inputType="number"
-        android:textColor="@color/lightPrimary"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/slashTxt"
-        app:layout_constraintTop_toBottomOf="@+id/glucoseInput" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/div"
+        app:layout_constraintStart_toStartOf="@+id/glucoseInput"
+        app:layout_constraintTop_toTopOf="@+id/div" />
 
-    <Button
-        android:id="@+id/addExamBtn"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/div"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:background="@drawable/rounded_btn"
-        android:text="@string/add"
-        android:textColor="@color/lightPrimary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pressureInput1" />
+        android:layout_marginTop="24dp"
+        android:text="/"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/glucoseInput" />
 
     <EditText
         android:id="@+id/pressureInput2"
-        android:layout_width="250px"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="number"
-        android:textColor="@color/lightPrimary"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/slashTxt"
-        app:layout_constraintTop_toBottomOf="@+id/glucoseInput" />
-
-    <TextView
-        android:id="@+id/slashTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/slash"
-        android:textColor="@color/lightPrimary"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/glucoseInput" />
-
-    <TextView
-        android:id="@+id/pressureTip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pressure_tip"
-        android:textColor="@color/lightPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slashTxt" />
-
-    <TextView
-        android:id="@+id/glucoseTip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/glukose_tip"
-        android:textColor="@color/lightPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/glucoseInput" />
-
-    <TextView
-        android:id="@+id/dataSendTxt"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/rounded_container"
+        android:ems="10"
         android:gravity="center"
-        android:text="POMIAR\n PRZESŁANY"
+        android:hint="Rozkurczowe"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/glucoseInput"
+        app:layout_constraintStart_toEndOf="@+id/div"
+        app:layout_constraintTop_toTopOf="@+id/div" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/rounded_btn"
+        android:text="WPROWADŹ"
         android:textColor="@android:color/white"
-        android:textColorLink="@android:color/white"
-        android:textSize="36sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
