@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Patron</string>
+    <string name="app_name">Opiekun</string>
     <string name="measures_name">POMIARY</string>
     <string name="weight_tip">Waga kg (np. 85)</string>
     <string name="add">DODAJ</string>
