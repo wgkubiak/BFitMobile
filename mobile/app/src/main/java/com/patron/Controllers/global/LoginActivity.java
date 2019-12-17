@@ -157,8 +157,10 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (tempMail.equals(m) && tempPass.equals(p)) {
                             if(user) {
+                                String protegeID = jsonPart.getString("protege_id");
                                 finish();
-                                openAddExam();
+
+                                openAddExam(protegeID);
                             } else {
                                 String patronID = jsonPart.getString("patron_id");
 
@@ -180,8 +182,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void openAddExam() {
+    private void openAddExam(String id) {
         Intent intent = new Intent(this, AddExamActivity.class);
+        intent.putExtra("exam_protege", id);
+
         startActivity(intent);
     }
 
