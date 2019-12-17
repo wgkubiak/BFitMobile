@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.patron.Controllers.PostExam;
+import com.patron.Controllers.global.CreateUserActivity;
 import com.patron.R;
 
 import org.w3c.dom.Text;
@@ -47,6 +49,8 @@ public class AddExamActivity extends AppCompatActivity {
         final TextView glucose = (TextView) findViewById(R.id.glucoseInput);
         final TextView pressure1 = (TextView) findViewById(R.id.pressureInput1);
         final TextView pressure2 = (TextView) findViewById(R.id.pressureInput2);
+        final TextView dataSend = (TextView) findViewById(R.id.dataSend);
+        final TextView slash = (TextView) findViewById(R.id.div);
 
         addExamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +64,16 @@ public class AddExamActivity extends AppCompatActivity {
                     PostExam postExam = new PostExam();
                     postExam.execute("https://patronapi.herokuapp.com/exams", id, protegeWeight, protegeGlucose,
                             protegePressure);
+
+                    Toast.makeText(AddExamActivity.this, "Zrobione!",
+                            Toast.LENGTH_SHORT).show();
+
+                    weight.setVisibility(View.GONE);
+                    glucose.setVisibility(View.GONE);
+                    pressure1.setVisibility(View.GONE);
+                    pressure2.setVisibility(View.GONE);
+                    slash.setVisibility(View.GONE);
+                    dataSend.setVisibility(View.VISIBLE);
 
                 } catch (Exception e) {
                     e.printStackTrace();

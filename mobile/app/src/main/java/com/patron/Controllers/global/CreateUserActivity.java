@@ -3,12 +3,16 @@ package com.patron.Controllers.global;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.patron.Controllers.PostPatron;
+import com.patron.Controllers.PostProtege;
 import com.patron.R;
 
 import org.w3c.dom.Text;
@@ -25,11 +29,55 @@ public class CreateUserActivity extends AppCompatActivity {
         final TextView createRoleText = (TextView) findViewById(R.id.createTypeText);
         createRoleText.setText("Opiekun");
 
+        final TextView mail = (TextView) findViewById(R.id.mailInput);
+        final TextView password = (TextView) findViewById(R.id.passInput);
+        final TextView passwordConfirm = (TextView) findViewById(R.id.passConfirmInput);
+        final TextView fistName = (TextView) findViewById(R.id.firstnameInput);
+        final TextView lastName = (TextView) findViewById(R.id.lastnameInput);
+        final Button createBtn = (Button) findViewById(R.id.createAccBtn);
+
         final Switch roleSwitch = (Switch) findViewById(R.id.createUserTypeSwitch);
+
+        createBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userMail = mail.getText().toString();
+                String userPassword = password.getText().toString();
+                String confirm = passwordConfirm.getText().toString();
+                String userFirstName = fistName.getText().toString();
+                String userLastName = lastName.getText().toString();
+
+                if(roleTxt == "Opiekun") {
+                    if(userPassword.equals(confirm)){
+                        PostPatron postPatron = new PostPatron();
+                        postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
+                                userPassword, userFirstName, userLastName);
+                        finish();
+                    } else {
+                        Toast.makeText(CreateUserActivity.this, "Hasła niezgodne!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if(userPassword.equals(confirm)){
+                        PostProtege postProtege = new PostProtege();
+                        postProtege.execute("https://patronapi.herokuapp.com/proteges", userFirstName,
+                                userLastName, userMail, userPassword);
+                        finish();
+                    } else {
+                        Toast.makeText(CreateUserActivity.this, "Hasła niezgodne!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
         roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
                 roleTxt = isChecked ? "Podopieczny" : "Opiekun";
+
+                Log.i("Role: ", roleTxt);
                 createRoleText.setText(roleTxt);
             }
         });
