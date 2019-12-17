@@ -52,12 +52,6 @@ public class DownloadJSON extends AsyncTask<String,Void,String> {
             tempArray = new JSONArray(s);
 
             Log.i("PostExec JSON: ", s);
-
-            for(int i = 0; i < tempArray.length(); i++) {
-                JSONObject jsonObject = tempArray.getJSONObject(i);
-
-                Log.i("protege_id", jsonObject.getString("protege_id"));
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
