@@ -86,6 +86,19 @@ public class ProtegesListActivity extends AppCompatActivity {
                             weight = jsonPart.getString("exam_weight");
                             glucose = jsonPart.getString("exam_glucose");
                             pressure = jsonPart.getString("exam_pressure");
+
+                            if(weight.equals("null")) {
+                                weight = "BD";
+                            }
+
+                            if(glucose.equals("null")) {
+                                glucose = "BD";
+                            }
+
+                            if(pressure.equals("null")) {
+                                pressure = "BD";
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
 
