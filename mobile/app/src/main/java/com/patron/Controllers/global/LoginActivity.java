@@ -26,7 +26,6 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
 
     private String roleTxt = "Opiekun";
-    private String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         final TextView passView = (TextView) findViewById(R.id.logPassword);
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
         final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
-        //final TextView logInfo = (TextView) findViewById(R.id.logNoAccInfo);
         final ProgressBar logProgress = (ProgressBar) findViewById(R.id.logProgress);
-        //final ImageView logo = (ImageView) findViewById(R.id.logo);
         final TextView loadingInfo = (TextView) findViewById(R.id.loadingInfo);
         final ImageView whiteBg = (ImageView) findViewById(R.id.whiteLoginBg);
         final TextView header = (TextView) findViewById(R.id.textViewLoginHeader);
@@ -64,71 +61,45 @@ public class LoginActivity extends AppCompatActivity {
                 roleSwitch.setVisibility(View.VISIBLE);
                 header.setVisibility(View.VISIBLE);
                 whiteBg.setVisibility(View.VISIBLE);
-                //logInfo.setVisibility(View.VISIBLE);
                 loadingInfo.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
                 logProgress.setVisibility(View.GONE);
             }
         }, 5000);
 
+        final boolean tempIsChecked = false;
 
+        logLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logUser(mailView, passView, "patron_mail","patron_pass", tempIsChecked);
+            }
+        });
 
         roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 roleTxt = isChecked ? "PODOPIECZNY" : "OPIEKUN";
                 logRoleText.setText(roleTxt);
 
 
                 if(isChecked) {
                     logDownloadData("https://patronapi.herokuapp.com/proteges/auth", logProgress, logLoginButton);
-                    JSONArray data = DownloadJSON.tempArray;
                     Log.i("Changed into: ", "Protege");
-
-                } else {
-                    logDownloadData("https://patronapi.herokuapp.com/patrons/auth", logProgress, logLoginButton);
-
-                    Log.i("Changed into: ", "Patron");
 
                     logLoginButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            JSONArray data = DownloadJSON.tempArray;
+                            logUser(mailView, passView, "protege_mail","protege_pass", isChecked);
+                        }
+                    });
+                } else {
+                    logDownloadData("https://patronapi.herokuapp.com/patrons/auth", logProgress, logLoginButton);
 
-                            try {
-                                for (int i = 0; i < data.length(); i++) {
-                                    JSONObject jsonPart = data.getJSONObject(i);
-
-                                    String m = mailView.getText().toString();
-                                    String p = passView.getText().toString();
-
-                                    m.replace("\n", "");
-
-                                    String tempMail = jsonPart.getString("patron_mail");
-                                    String tempPass = jsonPart.getString("patron_pass");
-
-                                    Log.i("m: ", m);
-                                    Log.i("p", p);
-                                    Log.i("tempMail", tempMail);
-                                    Log.i("tempPass", tempPass);
-
-                                    if (tempMail.equals(m) && tempPass.equals(p)) {
-                                        String patronID = jsonPart.getString("patron_id");
-
-                                        finish();
-                                        openProtegesList(patronID);
-                                    } else {
-                                        if(tempMail == null || tempMail.isEmpty()) {
-                                            Toast.makeText(LoginActivity.this, "Złe dane!",
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(LoginActivity.this, "Coś poszło nie tak! Spróbuj ponownie.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
+                    Log.i("Changed into: ", "Patron");
+                    logLoginButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            logUser(mailView, passView, "patron_mail","patron_pass", isChecked);
                         }
                     });
                 }
@@ -144,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void logDownloadData(String ur, final ProgressBar logProgress, final Button logLoginButton) {
+    private void logDownloadData(String ur, final ProgressBar logProgress, final Button logLoginButton) {
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute(ur);
 
@@ -159,6 +130,54 @@ public class LoginActivity extends AppCompatActivity {
                 logProgress.setVisibility(View.GONE);
             }
         }, 2000);
+    }
+
+    private void logUser(final TextView mailView, final TextView passView,
+                         final String mail, final String pass, final boolean user) {
+
+                JSONArray data = DownloadJSON.tempArray;
+
+                try {
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject jsonPart = data.getJSONObject(i);
+
+                        String m = mailView.getText().toString();
+                        String p = passView.getText().toString();
+
+                        m.replace("\n", "");
+
+                        String tempMail = jsonPart.getString(mail);
+                        String tempPass = jsonPart.getString(pass);
+
+                        Log.i("m: ", m);
+                        Log.i("p", p);
+                        Log.i("tempMail", tempMail);
+                        Log.i("tempPass", tempPass);
+
+
+                        if (tempMail.equals(m) && tempPass.equals(p)) {
+                            if(user) {
+                                finish();
+                                openAddExam();
+                            } else {
+                                String patronID = jsonPart.getString("patron_id");
+
+                                finish();
+                                openProtegesList(patronID);
+                            }
+                        } else {
+                            //TODO: info about wrong data
+//
+//                                        Toast.makeText(LoginActivity.this, "Złe dane!",
+//                                                Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(LoginActivity.this, "Coś poszło nie tak! Spróbuj ponownie.",
+                            Toast.LENGTH_SHORT).show();
+                }
+
     }
 
     private void openAddExam() {

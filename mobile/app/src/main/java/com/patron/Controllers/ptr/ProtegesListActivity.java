@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class ProtegesListActivity extends AppCompatActivity {
     List<Protege> protegeList;
     ProgressBar progressBar;
     Button assignProtegeActivityBtn;
+    ImageView btnBg;
     Button delBtn;
 
     @Override
@@ -48,6 +50,7 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         assignProtegeActivityBtn = (Button) findViewById(R.id.assignActivityBtn);
+        btnBg = (ImageView) findViewById(R.id.btnBg);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
@@ -111,6 +114,7 @@ public class ProtegesListActivity extends AppCompatActivity {
                 progressBar = (ProgressBar) findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.GONE);
                 assignProtegeActivityBtn.setVisibility(View.VISIBLE);
+                btnBg.setVisibility(View.VISIBLE);
 
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
