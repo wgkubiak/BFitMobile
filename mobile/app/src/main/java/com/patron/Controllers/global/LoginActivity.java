@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.ptg.AddExamActivity;
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         final TextView header = (TextView) findViewById(R.id.textViewLoginHeader);
 
         DownloadJSON downloadJSON = new DownloadJSON();
-        downloadJSON.execute("https://patronapi.herokuapp.com/patrons");
+        downloadJSON.execute("https://patronapi.herokuapp.com/patrons/auth");
 
         logRoleText.setText("OPIEKUN");
 
@@ -71,45 +73,65 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        logLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JSONArray data = DownloadJSON.tempArray;
-                try {
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject jsonPart = data.getJSONObject(i);
-
-                        String m = mailView.getText().toString();
-                        String p = passView.getText().toString();
-
-                        m.replace("\n", "");
-
-                        String tempMail = jsonPart.getString("patron_mail");
-                        String tempPass = jsonPart.getString("patron_pass");
-
-                        if (tempMail.equals(m) && tempPass.equals(p)) {
-                            String patronID = jsonPart.getString("patron_id");
-
-                            if (roleTxt.equals("PODOPIECZNY")) {
-                                finish();
-                                openAddExam();
-                            } else {
-                                finish();
-                                openProtegesList(patronID);
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         roleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 roleTxt = isChecked ? "PODOPIECZNY" : "OPIEKUN";
                 logRoleText.setText(roleTxt);
+
+
+                if(isChecked) {
+                    logDownloadData("https://patronapi.herokuapp.com/proteges/auth", logProgress, logLoginButton);
+                    JSONArray data = DownloadJSON.tempArray;
+                    Log.i("Changed into: ", "Protege");
+
+                } else {
+                    logDownloadData("https://patronapi.herokuapp.com/patrons/auth", logProgress, logLoginButton);
+
+                    Log.i("Changed into: ", "Patron");
+
+                    logLoginButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            JSONArray data = DownloadJSON.tempArray;
+
+                            try {
+                                for (int i = 0; i < data.length(); i++) {
+                                    JSONObject jsonPart = data.getJSONObject(i);
+
+                                    String m = mailView.getText().toString();
+                                    String p = passView.getText().toString();
+
+                                    m.replace("\n", "");
+
+                                    String tempMail = jsonPart.getString("patron_mail");
+                                    String tempPass = jsonPart.getString("patron_pass");
+
+                                    Log.i("m: ", m);
+                                    Log.i("p", p);
+                                    Log.i("tempMail", tempMail);
+                                    Log.i("tempPass", tempPass);
+
+                                    if (tempMail.equals(m) && tempPass.equals(p)) {
+                                        String patronID = jsonPart.getString("patron_id");
+
+                                        finish();
+                                        openProtegesList(patronID);
+                                    } else {
+                                        if(tempMail == null || tempMail.isEmpty()) {
+                                            Toast.makeText(LoginActivity.this, "Złe dane!",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(LoginActivity.this, "Coś poszło nie tak! Spróbuj ponownie.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -120,6 +142,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void logDownloadData(String ur, final ProgressBar logProgress, final Button logLoginButton) {
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute(ur);
+
+        logProgress.setVisibility(View.VISIBLE);
+        logLoginButton.setVisibility(View.INVISIBLE);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logLoginButton.setVisibility(View.VISIBLE);
+                logProgress.setVisibility(View.GONE);
+            }
+        }, 2000);
     }
 
     private void openAddExam() {
