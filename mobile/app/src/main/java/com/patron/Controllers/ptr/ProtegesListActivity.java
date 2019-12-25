@@ -1,9 +1,11 @@
 package com.patron.Controllers.ptr;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,9 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.patron.Controllers.DownloadJSON;
+import com.patron.Controllers.UnsubProtege;
 import com.patron.Controllers.ptg.AddExamActivity;
 import com.patron.R;
 
@@ -35,6 +39,7 @@ public class ProtegesListActivity extends AppCompatActivity {
     Button assignProtegeActivityBtn;
     ImageView btnBg;
     Button delBtn;
+    final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,12 @@ public class ProtegesListActivity extends AppCompatActivity {
         assignProtegeActivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //unsubProtege(14);
                 openAssignProtege(id);
             }
         });
 
-        final Handler handler = new Handler();
+        //final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -107,8 +113,6 @@ public class ProtegesListActivity extends AppCompatActivity {
                             pressure = "BD";
                         }
 
-
-
                         protegeList.add(
                                 new Protege(
                                         protegeID,
@@ -140,28 +144,32 @@ public class ProtegesListActivity extends AppCompatActivity {
         intent.putExtra("patron_id", id);
         startActivity(intent);
     }
+
+    private void unsubProtege(final int id) {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Chcesz usunąć podopiecznego!")
+                .setMessage("Czy jesteś pewny/a?")
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+
+                            UnsubProtege unsubProtege = new UnsubProtege();
+                            unsubProtege.execute("https://patronapi.herokuapp.com/proteges/edit/" + id);
+
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.i("Welcome: ", "Wojtek");
+                                }
+                            }, 3000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .setNegativeButton("Nie", null)
+                .show();
+    }
 }
-
-
-// TODO: Put this into activity with list of measures
-
-//        Button addExamBtn = (Button) findViewById(R.id.addExamBtn);
-//        addExamBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//
-//        new AlertDialog.Builder(this)
-//                .setIcon(android.R.drawable.ic_dialog_alert)
-//                .setTitle("Chcesz usunąć podopiecznego!")
-//                .setMessage("Czy jesteś pewny/a?")
-//                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(ProtegesListActivity.this, "Podopieczny usunięty!", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .setNegativeButton("Nie", null)
-//                .show();
