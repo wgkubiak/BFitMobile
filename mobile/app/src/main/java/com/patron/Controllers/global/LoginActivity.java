@@ -158,13 +158,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (tempMail.equals(m) && tempPass.equals(p)) {
                             if(user) {
                                 String protegeID = jsonPart.getString("protege_id");
-                                finish();
-
                                 openAddExam(protegeID);
                             } else {
                                 String patronID = jsonPart.getString("patron_id");
-
-                                finish();
                                 openProtegesList(patronID);
                             }
                         } else {

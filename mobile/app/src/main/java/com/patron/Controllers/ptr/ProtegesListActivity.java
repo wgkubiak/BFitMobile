@@ -172,4 +172,22 @@ public class ProtegesListActivity extends AppCompatActivity {
                 .setNegativeButton("Nie", null)
                 .show();
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Próba wylogowania!")
+                .setMessage("Czy jesteś pewny/a?")
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DownloadJSON downloadJSON = new DownloadJSON();
+                        downloadJSON.execute("https://patronapi.herokuapp.com/patrons/auth");
+                        finish();
+                    }
+                })
+                .setNegativeButton("Nie", null)
+                .show();
+    }
 }

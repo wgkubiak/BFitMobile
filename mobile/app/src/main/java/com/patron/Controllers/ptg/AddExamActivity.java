@@ -1,7 +1,9 @@
 package com.patron.Controllers.ptg;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.PostExam;
 import com.patron.R;
 
@@ -66,4 +69,22 @@ public class AddExamActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Próba wylogowania!")
+                .setMessage("Czy jesteś pewny/a?")
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DownloadJSON downloadJSON = new DownloadJSON();
+                        downloadJSON.execute("https://patronapi.herokuapp.com/proteges/auth");
+
+                        finish();
+                    }
+                })
+                .setNegativeButton("Nie", null)
+                .show();
+    }
 }
