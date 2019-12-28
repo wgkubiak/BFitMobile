@@ -12,4 +12,6 @@
     <string name="log_in">ZALOGUJ</string>
     <string name="create_acc">STWÓRZ KONTO</string>
     <string name="no_acc">Nie posiadasz konta?</string>
+    <string name="usu_podopiecznego">Usuń podopiecznego</string>
+    <string name="imi_i_nazwisko">Imię i nazwisko</string>
 </resources>

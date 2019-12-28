@@ -32,7 +32,7 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginRight="0dp"
-                android:background="@color/colorAccent"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="Wojciech Kubiak"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -132,22 +132,6 @@
                 android:gravity="center"
                 android:text="Glukoza:"
                 android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/delBtn"
-                android:layout_width="28dp"
-                android:layout_height="138dp"
-                android:layout_below="@+id/textViewName"
-                android:layout_alignEnd="@+id/textViewName"
-                android:layout_alignRight="@+id/textViewName"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginRight="0dp"
-                android:background="@color/failRed"
-                android:text="X"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                tools:visibility="visible" />
 
             <View
                 android:id="@+id/divider7"

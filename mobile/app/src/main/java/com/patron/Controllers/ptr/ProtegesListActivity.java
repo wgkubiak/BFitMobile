@@ -12,15 +12,14 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.UnsubProtege;
-import com.patron.Controllers.ptg.AddExamActivity;
 import com.patron.R;
 
 import org.json.JSONArray;
@@ -36,9 +35,10 @@ public class ProtegesListActivity extends AppCompatActivity {
     ProtegesAdapter protegesAdapter;
     List<Protege> protegeList;
     ProgressBar progressBar;
-    Button assignProtegeActivityBtn;
+    Button addDialogBtn;
+    Button removeDialogBtn;
     ImageView btnBg;
-    Button delBtn;
+
     final Handler handler = new Handler();
 
     @Override
@@ -54,17 +54,25 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        assignProtegeActivityBtn = (Button) findViewById(R.id.assignActivityBtn);
+        addDialogBtn = (Button) findViewById(R.id.addDialog);
+        removeDialogBtn = (Button) findViewById(R.id.removeDialog);
+
         btnBg = (ImageView) findViewById(R.id.btnBg);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
 
-        assignProtegeActivityBtn.setOnClickListener(new View.OnClickListener() {
+        addDialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //unsubProtege(14);
-                openAssignProtege(id);
+                addProtege();
+            }
+        });
+
+        removeDialogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delProtege();
             }
         });
 
@@ -78,12 +86,11 @@ public class ProtegesListActivity extends AppCompatActivity {
                     for(int i = 0; i < data.length(); i++) {    // < DownloadJSON.tempArray
 
                         JSONObject jsonPart = data.getJSONObject(i);
-                        //TODO: try running before downloadJSON.execute
 
                         Log.i("ProtegeListPatron ID", id);
-                        String protegeID = jsonPart.getString("protege_id");
-                        String firstName = jsonPart.getString("protege_firstname");
-                        String lastName = jsonPart.getString("protege_lastname");
+                        final String protegeID = jsonPart.getString("protege_id");
+                        final String firstName = jsonPart.getString("protege_firstname");
+                        final String lastName = jsonPart.getString("protege_lastname");
 
                         String weight, glucose, pressure;
 
@@ -130,47 +137,15 @@ public class ProtegesListActivity extends AppCompatActivity {
 
                 progressBar = (ProgressBar) findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.GONE);
-                assignProtegeActivityBtn.setVisibility(View.VISIBLE);
+                addDialogBtn.setVisibility(View.VISIBLE);
+                removeDialogBtn.setVisibility(View.VISIBLE);
                 btnBg.setVisibility(View.VISIBLE);
+
 
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
             }
         }, 3000);
-    }
-
-    private void openAssignProtege(String id) {
-        Intent intent = new Intent(this, AssignProtegeActivity.class);
-        intent.putExtra("patron_id", id);
-        startActivity(intent);
-    }
-
-    private void unsubProtege(final int id) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Chcesz usunąć podopiecznego!")
-                .setMessage("Czy jesteś pewny/a?")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        try {
-
-                            UnsubProtege unsubProtege = new UnsubProtege();
-                            unsubProtege.execute("https://patronapi.herokuapp.com/proteges/edit/" + id);
-
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.i("Welcome: ", "Wojtek");
-                                }
-                            }, 3000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                })
-                .setNegativeButton("Nie", null)
-                .show();
     }
 
     @Override
@@ -189,5 +164,70 @@ public class ProtegesListActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Nie", null)
                 .show();
+    }
+
+    public void delProtege() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProtegesListActivity.this);
+        View mView =  getLayoutInflater().inflate(R.layout.unsub_dialog, null);
+        EditText mText = (EditText) mView.findViewById(R.id.removeData);
+        Button mBtn = (Button) mView.findViewById(R.id.removeBtn);
+
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = 9;
+                UnsubProtege unsubProtege = new UnsubProtege();
+                unsubProtege.execute("https://patronapi.herokuapp.com/proteges/edit/" + id);
+            }
+        });
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+    }
+
+    public void addProtege() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProtegesListActivity.this);
+        View mView =  getLayoutInflater().inflate(R.layout.add_dialog, null);
+        final EditText mText = (EditText) mView.findViewById(R.id.addData);
+        Button mBtn = (Button) mView.findViewById(R.id.addDataBtn);
+
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String protegeName = mText.getText().toString();
+                String[] splitName;
+                final String firstName, secondName;
+
+                Log.i("protegeName", protegeName);
+                try {
+                    splitName = protegeName.split(" ");
+
+                    firstName = splitName[0];
+                    secondName = splitName[1];
+
+                    Log.i("Firstname", firstName);
+                    Log.i("Secondname", secondName);
+
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ProtegesListActivity.this, firstName + " " +
+                                            secondName + " został/a dodany/a do grupy.",
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }, 2000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(ProtegesListActivity.this, "Brak wystarczających danych!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
     }
 }
