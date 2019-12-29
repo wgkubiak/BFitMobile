@@ -29,7 +29,8 @@
         android:hint=" Imię i Nazwisko (oddzielone spacją)"
         android:inputType="textPersonName"
         android:textColor="@color/textIcons"
-        android:textColorHint="@color/secondaryText" />
+        android:textColorHint="@color/secondaryText"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/addDataBtn"

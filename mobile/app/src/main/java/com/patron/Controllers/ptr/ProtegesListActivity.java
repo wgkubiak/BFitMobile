@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -36,9 +37,8 @@ public class ProtegesListActivity extends AppCompatActivity {
     ProtegesAdapter protegesAdapter;
     List<Protege> protegeList;
     ProgressBar progressBar;
-    Button addDialogBtn;
-    Button removeDialogBtn;
-    ImageView btnBg;
+    ImageButton addDialogBtn;
+    ImageButton removeDialogBtn;
 
     final Handler handler = new Handler();
 
@@ -55,10 +55,9 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        addDialogBtn = (Button) findViewById(R.id.addDialog);
-        removeDialogBtn = (Button) findViewById(R.id.removeDialog);
+        addDialogBtn = (ImageButton) findViewById(R.id.addDialog);
+        removeDialogBtn = (ImageButton) findViewById(R.id.removeDialog);
 
-        btnBg = (ImageView) findViewById(R.id.btnBg);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
@@ -140,8 +139,6 @@ public class ProtegesListActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 addDialogBtn.setVisibility(View.VISIBLE);
                 removeDialogBtn.setVisibility(View.VISIBLE);
-                btnBg.setVisibility(View.VISIBLE);
-
 
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
@@ -179,6 +176,11 @@ public class ProtegesListActivity extends AppCompatActivity {
                 int id = 9;
                 UnsubProtege unsubProtege = new UnsubProtege();
                 unsubProtege.execute("https://patronapi.herokuapp.com/proteges/edit/" + id);
+
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
             }
         });
         mBuilder.setView(mView);
