@@ -38,12 +38,14 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:background="@color/colorAccent"
+        android:contentDescription="add"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.45"
-        app:srcCompat="@drawable/baseline_how_to_reg_white_48dp" />
+        app:srcCompat="@drawable/baseline_how_to_reg_white_48dp"
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/removeDialog"
@@ -51,9 +53,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@color/failRed"
+        android:contentDescription="delete"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/addDialog"
         app:layout_constraintTop_toBottomOf="@+id/addDialog"
-        app:srcCompat="@drawable/baseline_delete_sweep_white_48dp" />
+        app:srcCompat="@drawable/baseline_delete_sweep_white_48dp"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
