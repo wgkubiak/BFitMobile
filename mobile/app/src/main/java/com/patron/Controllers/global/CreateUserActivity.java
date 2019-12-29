@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -47,26 +48,46 @@ public class CreateUserActivity extends AppCompatActivity {
                 String userFirstName = fistName.getText().toString();
                 String userLastName = lastName.getText().toString();
 
-                if(roleTxt == "Opiekun") {
-                    if(userPassword.equals(confirm)){
-                        PostPatron postPatron = new PostPatron();
-                        postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
-                                userPassword, userFirstName, userLastName);
-                        finish();
+                if(!userFirstName.equals("")) {
+                    if(!userLastName.equals("")) {
+                        if(!userPassword.equals("")) {
+                            if(!confirm.equals("")) {
+                                if(!userMail.equals("")) {
+                                    if(roleTxt == "Opiekun") {
+                                        if(userPassword.equals(confirm)) {
+                                            PostPatron postPatron = new PostPatron();
+                                            postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
+                                                    userPassword, userFirstName, userLastName);
+                                            showToast("Stworzono konto opiekuna!");
+                                            finish();
+                                        } else {
+                                            showToast("Hasła nie są takie same!");
+                                        }
+                                    } else {
+                                        if(userPassword.equals(confirm)) {
+                                            PostProtege postProtege = new PostProtege();
+                                            postProtege.execute("https://patronapi.herokuapp.com/proteges", userFirstName,
+                                                    userLastName, userMail, userPassword);
+                                            showToast("Stworzono konto podopiecznego!");
+                                            finish();
+                                        } else {
+                                            showToast("Hasła nie są takie same!");
+                                        }
+                                    }
+                                } else {
+                                    showToast("Uzupełnij mail-a!");
+                                }
+                            } else {
+                                showToast("Powtórz hasło!");
+                            }
+                        } else {
+                            showToast("Uzupełnij hasło!");
+                        }
                     } else {
-                        Toast.makeText(CreateUserActivity.this, "Hasła niezgodne!",
-                                Toast.LENGTH_SHORT).show();
+                        showToast("Uzupełnij nazwisko!");
                     }
                 } else {
-                    if(userPassword.equals(confirm)){
-                        PostProtege postProtege = new PostProtege();
-                        postProtege.execute("https://patronapi.herokuapp.com/proteges", userFirstName,
-                                userLastName, userMail, userPassword);
-                        finish();
-                    } else {
-                        Toast.makeText(CreateUserActivity.this, "Hasła niezgodne!",
-                                Toast.LENGTH_SHORT).show();
-                    }
+                    showToast("Uzupełnij imię!");
                 }
             }
         });
@@ -81,5 +102,12 @@ public class CreateUserActivity extends AppCompatActivity {
                 createRoleText.setText(roleTxt);
             }
         });
+    }
+
+    private void showToast(String text) {
+        Toast toast= Toast.makeText(getApplicationContext(),
+                text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }

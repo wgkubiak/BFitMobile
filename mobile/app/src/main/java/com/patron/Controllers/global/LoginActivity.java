@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingInfo.setVisibility(View.GONE);
                 logProgress.setVisibility(View.GONE);
             }
-        }, 5000);
+        }, 3000); // Was 5000
 
         final boolean tempIsChecked = false;
 
@@ -154,26 +155,33 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("tempMail", tempMail);
                         Log.i("tempPass", tempPass);
 
-
-                        if (tempMail.equals(m) && tempPass.equals(p)) {
-                            if(user) {
-                                String protegeID = jsonPart.getString("protege_id");
-                                openAddExam(protegeID);
+                        if(!m.equals("")) {
+                            if(!p.equals("")) {
+                                if (tempMail.equals(m) && tempPass.equals(p)) {
+                                    if(user) {
+                                        String protegeID = jsonPart.getString("protege_id");
+                                        openAddExam(protegeID);
+                                        showToast("Sukces!");
+                                        break;
+                                    } else {
+                                        String patronID = jsonPart.getString("patron_id");
+                                        openProtegesList(patronID);
+                                        showToast("Sukces!");
+                                        break;
+                                    }
+                                }
                             } else {
-                                String patronID = jsonPart.getString("patron_id");
-                                openProtegesList(patronID);
+                                showToast("Uzupełnij hasło!");
+                                break;
                             }
                         } else {
-                            //TODO: info about wrong data
-//
-//                                        Toast.makeText(LoginActivity.this, "Złe dane!",
-//                                                Toast.LENGTH_SHORT).show();
+                            showToast("Uzupełnij mail-a!");
+                            break;
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(LoginActivity.this, "Coś poszło nie tak! Spróbuj ponownie.",
-                            Toast.LENGTH_SHORT).show();
+                    showToast("Coś poszło nie tak! \nSpróbuj za minutę.");
                 }
 
     }
@@ -195,5 +203,12 @@ public class LoginActivity extends AppCompatActivity {
     private void openCreateUser() {
         Intent intent = new Intent(this, CreateUserActivity.class);
         startActivity(intent);
+    }
+
+    private void showToast(String text) {
+        Toast toast= Toast.makeText(getApplicationContext(),
+                text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }

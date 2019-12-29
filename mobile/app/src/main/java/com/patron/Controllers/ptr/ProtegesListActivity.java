@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -208,21 +209,20 @@ public class ProtegesListActivity extends AppCompatActivity {
                     Log.i("Firstname", firstName);
                     Log.i("Secondname", secondName);
 
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(ProtegesListActivity.this, firstName + " " +
-                                            secondName + " został/a dodany/a do grupy.",
-                                    Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    }, 2000);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(ProtegesListActivity.this, "Brak wystarczających danych!",
-                            Toast.LENGTH_SHORT).show();
+                    Toast toast= Toast.makeText(getApplicationContext(),
+                            "Brak wystarczających danych!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
+
+
             }
         });
 
@@ -230,4 +230,5 @@ public class ProtegesListActivity extends AppCompatActivity {
         AlertDialog dialog = mBuilder.create();
         dialog.show();
     }
+
 }

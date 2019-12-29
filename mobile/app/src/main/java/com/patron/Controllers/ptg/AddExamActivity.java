@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,28 +41,53 @@ public class AddExamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    String protegeWeight = weight.getText().toString() + "kg";
-                    String protegeGlucose = glucose.getText().toString() + "mg/dL";
-                    String protegePressure = pressure1.getText().toString() + "/"
-                            + pressure2.getText().toString() + "mm Hg";
+                    if(!weight.getText().toString().equals("")) {
+                        if(!glucose.getText().toString().equals("")) {
+                            if(!pressure1.getText().toString().equals("")
+                                    && !pressure2.getText().toString().equals("") ) {
 
-                    PostExam postExam = new PostExam();
-                    postExam.execute("https://patronapi.herokuapp.com/exams", id, protegeWeight, protegeGlucose,
-                            protegePressure);
+                                String protegeWeight = weight.getText().toString() + "kg";
+                                String protegeGlucose = glucose.getText().toString() + "mg/dL";
+                                String protegePressure = pressure1.getText().toString() + "/"
+                                        + pressure2.getText().toString() + "mm Hg";
 
-                    Toast.makeText(AddExamActivity.this, "Zrobione!",
-                            Toast.LENGTH_SHORT).show();
+                                PostExam postExam = new PostExam();
+                                postExam.execute("https://patronapi.herokuapp.com/exams", id, protegeWeight, protegeGlucose,
+                                        protegePressure);
 
-                    weight.setVisibility(View.INVISIBLE);
-                    glucose.setVisibility(View.INVISIBLE);
-                    pressure1.setVisibility(View.INVISIBLE);
-                    pressure2.setVisibility(View.INVISIBLE);
-                    slash.setVisibility(View.INVISIBLE);
-                    dataSend.setVisibility(View.VISIBLE);
-                    addExamBtn.setVisibility(View.GONE);
+                                Toast toast= Toast.makeText(getApplicationContext(),
+                                        "Wpis dodany!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
 
-                    imageView.setImageResource(R.color.colorAccent);
-                    dataSend.setTextColor(Color.WHITE);
+                                weight.setVisibility(View.INVISIBLE);
+                                glucose.setVisibility(View.INVISIBLE);
+                                pressure1.setVisibility(View.INVISIBLE);
+                                pressure2.setVisibility(View.INVISIBLE);
+                                slash.setVisibility(View.INVISIBLE);
+                                dataSend.setVisibility(View.VISIBLE);
+                                addExamBtn.setVisibility(View.GONE);
+
+                                imageView.setImageResource(R.color.colorAccent);
+                                dataSend.setTextColor(Color.WHITE);
+                            } else {
+                                Toast toast= Toast.makeText(getApplicationContext(),
+                                        "Uzupełnij ciśnienie!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                            }
+                        } else {
+                            Toast toast= Toast.makeText(getApplicationContext(),
+                                    "Uzupełnij glukozę!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                        }
+                    } else {
+                        Toast toast= Toast.makeText(getApplicationContext(),
+                                "Uzupełnij wagę!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
