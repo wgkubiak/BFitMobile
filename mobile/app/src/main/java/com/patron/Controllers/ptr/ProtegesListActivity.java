@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.patron.Controllers.AddProtege;
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.UnsubProtege;
 import com.patron.R;
@@ -170,6 +171,9 @@ public class ProtegesListActivity extends AppCompatActivity {
         final EditText mText = (EditText) mView.findViewById(R.id.removeData);
         final Button mBtn = (Button) mView.findViewById(R.id.removeBtn);
 
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute("https://patronapi.herokuapp.com/proteges");
+
         mBtn.setVisibility(View.VISIBLE);
 
         mBtn.setOnClickListener(new View.OnClickListener() {
@@ -177,11 +181,7 @@ public class ProtegesListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = getIntent();
                 final String id = intent.getStringExtra("patron_id");
-
-                DownloadJSON downloadJSON = new DownloadJSON();
-                downloadJSON.execute("https://patronapi.herokuapp.com/proteges");
                 final JSONArray data = DownloadJSON.tempArray;
-
                 final String protegeName = mText.getText().toString();
                 final String[] splitName;
 
@@ -219,6 +219,8 @@ public class ProtegesListActivity extends AppCompatActivity {
                                     startActivity(getIntent());
                                     overridePendingTransition(0, 0);
                                 }
+
+                                //TODO: Something when whole array is mapped, but nothing that matches isnt found
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -242,54 +244,78 @@ public class ProtegesListActivity extends AppCompatActivity {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProtegesListActivity.this);
         View mView =  getLayoutInflater().inflate(R.layout.add_dialog, null);
         final EditText mText = (EditText) mView.findViewById(R.id.addData);
-        Button mBtn = (Button) mView.findViewById(R.id.addDataBtn);
+        final Button mBtn = (Button) mView.findViewById(R.id.addDataBtn);
+
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute("https://patronapi.herokuapp.com/proteges");
+
+        mBtn.setVisibility(View.VISIBLE);
 
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String protegeName = mText.getText().toString();
-                String[] splitName;
-                final String firstName, secondName;
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                final String id = intent.getStringExtra("patron_id");
+                final JSONArray data = DownloadJSON.tempArray;
 
-                DownloadJSON downloadJSON = new DownloadJSON();
-                downloadJSON.execute("https://patronapi.herokuapp.com/proteges");
-                JSONArray data = DownloadJSON.tempArray;
+                final String protegeName = mText.getText().toString();
+                final String[] splitName;
 
-                Log.i("protegeName", protegeName);
-                try {
+                splitName = protegeName.split(" ");
 
-                    splitName = protegeName.split(" ");
+                Log.i("Update ", "Init");
 
-                    firstName = splitName[0];
-                    secondName = splitName[1];
+                mBtn.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
-                    for (int i = 0; i < data.length(); i++) {
-                        JSONObject jsonPart = data.getJSONObject(i);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //TODO: There is error with adapter, it doesnt exist while firstname and secondname is outside of func
+                            String firstName = splitName[0];
+                            String secondName = splitName[1];
 
-                        String tempFirstName = jsonPart.getString("patron_firstname");
-                        String tempLastName = jsonPart.getString("patron_lastname");
-                        String tempID = jsonPart.getString("protege_id");
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject jsonPart = data.getJSONObject(i);
 
-                        if ((tempFirstName == firstName) && (tempLastName == secondName)) {
-                            // PUT REQUEST HERE | HANDLER DELAY
-                            Log.i("Data ", tempFirstName + " " + tempLastName + " " + tempID);
+                                String tempFirstName = jsonPart.getString("protege_firstname");
+                                String tempLastName = jsonPart.getString("protege_lastname");
+                                String tempID = jsonPart.getString("protege_id");
+                                String currentPatron = jsonPart.getString("protege_patron");
 
+                                Log.i("currentpatron: ", currentPatron);
 
+                                if ((tempFirstName.equals(firstName)) && (tempLastName.equals(secondName)) &&
+                                        ((currentPatron.equals("null")) || currentPatron == null)) {
+                                    Log.i("WENT", "User id: " + tempID + " Protege: " + id);
+
+                                    // TODO: First input isn't working. Only after closing dialog and opening it again, request is send
+                                    AddProtege addProtege = new AddProtege();
+                                    addProtege.execute("https://patronapi.herokuapp.com/proteges/edit/set/" + tempID, id);
+
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(getIntent());
+                                    overridePendingTransition(0, 0);
+                                }
+
+                                //TODO: Something when whole array is mapped, but nothing that matches isnt found
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast toast= Toast.makeText(getApplicationContext(),
+                                    "Brak wystarczających danych!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                            mBtn.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast toast= Toast.makeText(getApplicationContext(),
-                            "Brak wystarczających danych!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                }
-
-
+                }, 2000);
             }
         });
-
         mBuilder.setView(mView);
         AlertDialog dialog = mBuilder.create();
         dialog.show();
