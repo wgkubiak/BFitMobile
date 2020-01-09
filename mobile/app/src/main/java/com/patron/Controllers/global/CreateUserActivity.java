@@ -1,8 +1,12 @@
 package com.patron.Controllers.global;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -12,8 +16,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.PostPatron;
 import com.patron.Controllers.PostProtege;
+import com.patron.Controllers.ptr.ProtegesListActivity;
 import com.patron.R;
 
 import org.w3c.dom.Text;
@@ -59,7 +65,9 @@ public class CreateUserActivity extends AppCompatActivity {
                                             postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
                                                     userPassword, userFirstName, userLastName);
                                             showToast("Stworzono konto opiekuna!");
+                                            Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
                                             finish();
+                                            startActivity(intent);
                                         } else {
                                             showToast("Hasła nie są takie same!");
                                         }
@@ -69,7 +77,10 @@ public class CreateUserActivity extends AppCompatActivity {
                                             postProtege.execute("https://patronapi.herokuapp.com/proteges", userFirstName,
                                                     userLastName, userMail, userPassword);
                                             showToast("Stworzono konto podopiecznego!");
+
+                                            Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
                                             finish();
+                                            startActivity(intent);
                                         } else {
                                             showToast("Hasła nie są takie same!");
                                         }
@@ -109,5 +120,25 @@ public class CreateUserActivity extends AppCompatActivity {
                 text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Próba wylogowania!")
+                .setMessage("Czy jesteś pewny/a?")
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DownloadJSON downloadJSON = new DownloadJSON();
+                        downloadJSON.execute("https://patronapi.herokuapp.com/patrons/auth");
+
+                        Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
+                        finish();
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Nie", null)
+                .show();
     }
 }

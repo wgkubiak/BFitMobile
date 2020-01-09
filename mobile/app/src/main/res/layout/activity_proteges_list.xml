@@ -7,39 +7,23 @@
     android:background="@drawable/bglog"
     tools:context=".Controllers.ptr.ProtegesListActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageButton
+    <Button
         android:id="@+id/addDialog"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/rounded_btn"
         android:contentDescription="add"
+        android:text="DODAJ"
+        android:textColor="#ffffff"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/removeDialog"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_how_to_reg_white_48dp"
-        tools:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/removeDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/failRed"
-        android:contentDescription="delete"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_delete_sweep_white_48dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider4"
         tools:visibility="visible" />
 
     <ProgressBar
@@ -53,5 +37,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/whiteBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="54dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/white"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/whiteBg"
+        app:layout_constraintEnd_toEndOf="@+id/whiteBg"
+        app:layout_constraintStart_toStartOf="@+id/whiteBg"
+        app:layout_constraintTop_toTopOf="@+id/whiteBg" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/whiteBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/removeDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/failRed"
+        android:contentDescription="delete"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/whiteBg"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:srcCompat="@drawable/baseline_delete_sweep_white_48dp"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

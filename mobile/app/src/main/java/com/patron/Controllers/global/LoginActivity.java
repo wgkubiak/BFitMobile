@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         final TextView logRoleText = (TextView) findViewById(R.id.logRoleText);
         final Switch roleSwitch = (Switch) findViewById(R.id.logRoleSwitch);
         final ProgressBar logProgress = (ProgressBar) findViewById(R.id.logProgress);
-        final TextView loadingInfo = (TextView) findViewById(R.id.loadingInfo);
         final ImageView whiteBg = (ImageView) findViewById(R.id.whiteLoginBg);
         final TextView header = (TextView) findViewById(R.id.textViewLoginHeader);
 
@@ -62,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                 roleSwitch.setVisibility(View.VISIBLE);
                 header.setVisibility(View.VISIBLE);
                 whiteBg.setVisibility(View.VISIBLE);
-                loadingInfo.setVisibility(View.GONE);
                 logProgress.setVisibility(View.GONE);
             }
         }, 3000); // Was 5000
@@ -113,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                 openCreateUser();
             }
         });
-
     }
 
     private void logDownloadData(String ur, final ProgressBar logProgress, final Button logLoginButton) {
@@ -189,19 +186,20 @@ public class LoginActivity extends AppCompatActivity {
     private void openAddExam(String id) {
         Intent intent = new Intent(this, AddExamActivity.class);
         intent.putExtra("exam_protege", id);
-
+        finish();
         startActivity(intent);
     }
 
     private void openProtegesList(String id) {
         Intent intent = new Intent(this, ProtegesListActivity.class);
         intent.putExtra("patron_id", id);
-
+        finish();
         startActivity(intent);
     }
 
     private void openCreateUser() {
         Intent intent = new Intent(this, CreateUserActivity.class);
+        finish();
         startActivity(intent);
     }
 

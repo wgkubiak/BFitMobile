@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.patron.Controllers.AddProtege;
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.UnsubProtege;
+import com.patron.Controllers.global.CreateUserActivity;
+import com.patron.Controllers.global.LoginActivity;
 import com.patron.R;
 
 import org.json.JSONArray;
@@ -38,8 +40,9 @@ public class ProtegesListActivity extends AppCompatActivity {
     ProtegesAdapter protegesAdapter;
     List<Protege> protegeList;
     ProgressBar progressBar;
-    ImageButton addDialogBtn;
+    Button addDialogBtn;
     ImageButton removeDialogBtn;
+    ImageView whiteBg;
 
     final Handler handler = new Handler();
 
@@ -56,9 +59,9 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        addDialogBtn = (ImageButton) findViewById(R.id.addDialog);
+        addDialogBtn = (Button) findViewById(R.id.addDialog);
         removeDialogBtn = (ImageButton) findViewById(R.id.removeDialog);
-
+        whiteBg = (ImageView) findViewById(R.id.whiteBg);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
@@ -140,7 +143,8 @@ public class ProtegesListActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 addDialogBtn.setVisibility(View.VISIBLE);
                 removeDialogBtn.setVisibility(View.VISIBLE);
-
+                whiteBg.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
             }
@@ -158,7 +162,10 @@ public class ProtegesListActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         DownloadJSON downloadJSON = new DownloadJSON();
                         downloadJSON.execute("https://patronapi.herokuapp.com/patrons/auth");
+
+                        Intent intent = new Intent(ProtegesListActivity.this, LoginActivity.class);
                         finish();
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("Nie", null)
