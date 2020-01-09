@@ -54,16 +54,25 @@ public class CreateUserActivity extends AppCompatActivity {
                 String userFirstName = fistName.getText().toString();
                 String userLastName = lastName.getText().toString();
 
+
+
+
                 if(!userFirstName.equals("")) {
                     if(!userLastName.equals("")) {
                         if(!userPassword.equals("")) {
                             if(!confirm.equals("")) {
                                 if(!userMail.equals("")) {
+
+                                    String capitalizeFirstName = userFirstName.substring(0, 1).toUpperCase()
+                                            + userFirstName.substring(1).toLowerCase();
+                                    String capitalizeLastName = userLastName.substring(0, 1).toUpperCase()
+                                            + userLastName.substring(1).toLowerCase();
+
                                     if(roleTxt == "Opiekun") {
                                         if(userPassword.equals(confirm)) {
                                             PostPatron postPatron = new PostPatron();
                                             postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
-                                                    userPassword, userFirstName, userLastName);
+                                                    userPassword, capitalizeFirstName, capitalizeLastName);
                                             showToast("Stworzono konto opiekuna!");
                                             Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
                                             finish();
@@ -74,8 +83,8 @@ public class CreateUserActivity extends AppCompatActivity {
                                     } else {
                                         if(userPassword.equals(confirm)) {
                                             PostProtege postProtege = new PostProtege();
-                                            postProtege.execute("https://patronapi.herokuapp.com/proteges", userFirstName,
-                                                    userLastName, userMail, userPassword);
+                                            postProtege.execute("https://patronapi.herokuapp.com/proteges", capitalizeFirstName,
+                                                    capitalizeLastName, userMail, userPassword);
                                             showToast("Stworzono konto podopiecznego!");
 
                                             Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
@@ -121,18 +130,16 @@ public class CreateUserActivity extends AppCompatActivity {
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }
+
     @Override
     public void onBackPressed() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Próba wylogowania!")
+                .setTitle("Próba wyjścia!")
                 .setMessage("Czy jesteś pewny/a?")
                 .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DownloadJSON downloadJSON = new DownloadJSON();
-                        downloadJSON.execute("https://patronapi.herokuapp.com/patrons/auth");
-
                         Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
                         finish();
                         startActivity(intent);

@@ -62,10 +62,10 @@
         android:layout_height="0dp"
         android:background="@android:color/white"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/whiteBg"
+        app:layout_constraintBottom_toTopOf="@+id/addDialog"
         app:layout_constraintEnd_toEndOf="@+id/whiteBg"
         app:layout_constraintStart_toStartOf="@+id/whiteBg"
-        app:layout_constraintTop_toTopOf="@+id/whiteBg" />
+        app:layout_constraintTop_toBottomOf="@+id/removeDialog" />
 
     <View
         android:id="@+id/divider4"
@@ -76,16 +76,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/removeDialog"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/failRed"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/rounded_btn_red"
         android:contentDescription="delete"
+        android:text="USUŃ"
+        android:textColor="#ffffff"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/whiteBg"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
-        app:srcCompat="@drawable/baseline_delete_sweep_white_48dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
+
+    <View
+        android:id="@+id/divider6"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/whiteBg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

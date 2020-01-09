@@ -41,7 +41,7 @@ public class ProtegesListActivity extends AppCompatActivity {
     List<Protege> protegeList;
     ProgressBar progressBar;
     Button addDialogBtn;
-    ImageButton removeDialogBtn;
+    Button removeDialogBtn;
     ImageView whiteBg;
 
     final Handler handler = new Handler();
@@ -60,7 +60,7 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         addDialogBtn = (Button) findViewById(R.id.addDialog);
-        removeDialogBtn = (ImageButton) findViewById(R.id.removeDialog);
+        removeDialogBtn = (Button) findViewById(R.id.removeDialog);
         whiteBg = (ImageView) findViewById(R.id.whiteBg);
 
         DownloadJSON downloadJSON = new DownloadJSON();
@@ -208,6 +208,11 @@ public class ProtegesListActivity extends AppCompatActivity {
                             String firstName = splitName[0];
                             String secondName = splitName[1];
 
+                            String capitalizeFirstName = firstName.substring(0, 1).toUpperCase()
+                                    + firstName.substring(1).toLowerCase();
+                            String capitalizeSecondName = secondName.substring(0, 1).toUpperCase()
+                                    + secondName.substring(1).toLowerCase();
+
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject jsonPart = data.getJSONObject(i);
 
@@ -216,7 +221,8 @@ public class ProtegesListActivity extends AppCompatActivity {
                                 String tempID = jsonPart.getString("protege_id");
                                 String currentPatron = jsonPart.getString("protege_patron");
 
-                                if ((tempFirstName.equals(firstName)) && (tempLastName.equals(secondName)) && (currentPatron.equals(id))) {
+                                if ((tempFirstName.equals(capitalizeFirstName)) && (tempLastName.equals(capitalizeSecondName))
+                                        && (currentPatron.equals(id))) {
                                     UnsubProtege unsubProtege = new UnsubProtege();
                                     unsubProtege.execute("https://patronapi.herokuapp.com/proteges/edit/" + tempID);
 
@@ -239,7 +245,7 @@ public class ProtegesListActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     }
-                }, 2000);
+                }, 500);
             }
         });
         mBuilder.setView(mView);
@@ -284,6 +290,11 @@ public class ProtegesListActivity extends AppCompatActivity {
                             String firstName = splitName[0];
                             String secondName = splitName[1];
 
+                            String capitalizeFirstName = firstName.substring(0, 1).toUpperCase()
+                                    + firstName.substring(1).toLowerCase();
+                            String capitalizeSecondName = secondName.substring(0, 1).toUpperCase()
+                                    + secondName.substring(1).toLowerCase();
+
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject jsonPart = data.getJSONObject(i);
 
@@ -294,7 +305,7 @@ public class ProtegesListActivity extends AppCompatActivity {
 
                                 Log.i("currentpatron: ", currentPatron);
 
-                                if ((tempFirstName.equals(firstName)) && (tempLastName.equals(secondName)) &&
+                                if ((tempFirstName.equals(capitalizeFirstName)) && (tempLastName.equals(capitalizeSecondName)) &&
                                         ((currentPatron.equals("null")) || currentPatron == null)) {
                                     Log.i("WENT", "User id: " + tempID + " Protege: " + id);
 
@@ -320,7 +331,7 @@ public class ProtegesListActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     }
-                }, 2000);
+                }, 500);
             }
         });
         mBuilder.setView(mView);

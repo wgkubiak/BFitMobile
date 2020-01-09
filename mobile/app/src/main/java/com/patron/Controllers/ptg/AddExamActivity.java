@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.patron.Controllers.DownloadJSON;
 import com.patron.Controllers.PostExam;
+import com.patron.Controllers.global.CreateUserActivity;
+import com.patron.Controllers.global.LoginActivity;
 import com.patron.R;
 
 public class AddExamActivity extends AppCompatActivity {
@@ -104,10 +106,9 @@ public class AddExamActivity extends AppCompatActivity {
                 .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DownloadJSON downloadJSON = new DownloadJSON();
-                        downloadJSON.execute("https://patronapi.herokuapp.com/proteges/auth");
-
+                        Intent intent = new Intent(AddExamActivity.this, LoginActivity.class);
                         finish();
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("Nie", null)
