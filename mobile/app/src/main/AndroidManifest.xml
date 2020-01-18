@@ -3,6 +3,7 @@
     package="com.patron">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,11 +23,6 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".Controllers.ptr.PatronSideProtegesExamsActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".Controllers.ptr.AssignProtegeActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:screenOrientation="portrait"

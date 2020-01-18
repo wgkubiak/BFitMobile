@@ -1,22 +1,30 @@
 package com.patron.Controllers.ptr;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.patron.Controllers.AddProtege;
 import com.patron.Controllers.DownloadJSON;
-import com.patron.Controllers.ptg.AddExamActivity;
+import com.patron.Controllers.UnsubProtege;
+import com.patron.Controllers.global.CreateUserActivity;
+import com.patron.Controllers.global.LoginActivity;
 import com.patron.R;
 
 import org.json.JSONArray;
@@ -32,9 +40,11 @@ public class ProtegesListActivity extends AppCompatActivity {
     ProtegesAdapter protegesAdapter;
     List<Protege> protegeList;
     ProgressBar progressBar;
-    Button assignProtegeActivityBtn;
-    ImageView btnBg;
-    Button delBtn;
+    Button addDialogBtn;
+    Button removeDialogBtn;
+    ImageView whiteBg;
+
+    final Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +59,28 @@ public class ProtegesListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        assignProtegeActivityBtn = (Button) findViewById(R.id.assignActivityBtn);
-        btnBg = (ImageView) findViewById(R.id.btnBg);
+        addDialogBtn = (Button) findViewById(R.id.addDialog);
+        removeDialogBtn = (Button) findViewById(R.id.removeDialog);
+        whiteBg = (ImageView) findViewById(R.id.whiteBg);
 
         DownloadJSON downloadJSON = new DownloadJSON();
         downloadJSON.execute("https://patronapi.herokuapp.com/proteges/" + id);
 
-        assignProtegeActivityBtn.setOnClickListener(new View.OnClickListener() {
+        addDialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openAssignProtege(id);
+                addProtege();
             }
         });
 
-        final Handler handler = new Handler();
+        removeDialogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delProtege();
+            }
+        });
+
+        //final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -72,12 +90,11 @@ public class ProtegesListActivity extends AppCompatActivity {
                     for(int i = 0; i < data.length(); i++) {    // < DownloadJSON.tempArray
 
                         JSONObject jsonPart = data.getJSONObject(i);
-                        //TODO: try running before downloadJSON.execute
 
                         Log.i("ProtegeListPatron ID", id);
-                        String protegeID = jsonPart.getString("protege_id");
-                        String firstName = jsonPart.getString("protege_firstname");
-                        String lastName = jsonPart.getString("protege_lastname");
+                        final String protegeID = jsonPart.getString("protege_id");
+                        final String firstName = jsonPart.getString("protege_firstname");
+                        final String lastName = jsonPart.getString("protege_lastname");
 
                         String weight, glucose, pressure;
 
@@ -86,6 +103,19 @@ public class ProtegesListActivity extends AppCompatActivity {
                             weight = jsonPart.getString("exam_weight");
                             glucose = jsonPart.getString("exam_glucose");
                             pressure = jsonPart.getString("exam_pressure");
+
+                            if(weight.equals("null")) {
+                                weight = "BD";
+                            }
+
+                            if(glucose.equals("null")) {
+                                glucose = "BD";
+                            }
+
+                            if(pressure.equals("null")) {
+                                pressure = "BD";
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
 
@@ -93,8 +123,6 @@ public class ProtegesListActivity extends AppCompatActivity {
                             glucose = "BD";
                             pressure = "BD";
                         }
-
-
 
                         protegeList.add(
                                 new Protege(
@@ -113,42 +141,201 @@ public class ProtegesListActivity extends AppCompatActivity {
 
                 progressBar = (ProgressBar) findViewById(R.id.progressBar);
                 progressBar.setVisibility(View.GONE);
-                assignProtegeActivityBtn.setVisibility(View.VISIBLE);
-                btnBg.setVisibility(View.VISIBLE);
-
+                addDialogBtn.setVisibility(View.VISIBLE);
+                removeDialogBtn.setVisibility(View.VISIBLE);
+                whiteBg.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
                 protegesAdapter = new ProtegesAdapter(ProtegesListActivity.this, protegeList);
                 recyclerView.setAdapter(protegesAdapter);
             }
         }, 3000);
     }
 
-    private void openAssignProtege(String id) {
-        Intent intent = new Intent(this, AssignProtegeActivity.class);
-        intent.putExtra("patron_id", id);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Próba wylogowania!")
+                .setMessage("Czy jesteś pewny/a?")
+                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DownloadJSON downloadJSON = new DownloadJSON();
+                        downloadJSON.execute("https://patronapi.herokuapp.com/patrons/auth");
+
+                        Intent intent = new Intent(ProtegesListActivity.this, LoginActivity.class);
+                        finish();
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Nie", null)
+                .show();
+    }
+
+    public void delProtege() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProtegesListActivity.this);
+        View mView =  getLayoutInflater().inflate(R.layout.unsub_dialog, null);
+        final EditText mText = (EditText) mView.findViewById(R.id.removeData);
+        final Button mBtn = (Button) mView.findViewById(R.id.removeBtn);
+
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute("https://patronapi.herokuapp.com/proteges");
+
+        mBtn.setVisibility(View.VISIBLE);
+
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                final String id = intent.getStringExtra("patron_id");
+                final JSONArray data = DownloadJSON.tempArray;
+                final String protegeName = mText.getText().toString();
+                final String[] splitName;
+
+                splitName = protegeName.split(" ");
+
+                Log.i("Delete ", "Init");
+
+                mBtn.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //TODO: There is error with adapter, it doesnt exist while firstname and secondname is outside of func
+                            String firstName = splitName[0];
+                            String secondName = splitName[1];
+
+                            String capitalizeFirstName = firstName.substring(0, 1).toUpperCase()
+                                    + firstName.substring(1).toLowerCase();
+                            String capitalizeSecondName = secondName.substring(0, 1).toUpperCase()
+                                    + secondName.substring(1).toLowerCase();
+
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject jsonPart = data.getJSONObject(i);
+
+                                String tempFirstName = jsonPart.getString("protege_firstname");
+                                String tempLastName = jsonPart.getString("protege_lastname");
+                                String tempID = jsonPart.getString("protege_id");
+                                String currentPatron = jsonPart.getString("protege_patron");
+
+                                if ((tempFirstName.equals(capitalizeFirstName)) && (tempLastName.equals(capitalizeSecondName))
+                                        && (currentPatron.equals(id))) {
+                                    UnsubProtege unsubProtege = new UnsubProtege();
+                                    unsubProtege.execute("https://patronapi.herokuapp.com/proteges/edit/" + tempID);
+
+
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(getIntent());
+                                    overridePendingTransition(0, 0);
+                                }
+
+                                //TODO: Something when whole array is mapped, but nothing that matches isnt found
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast toast= Toast.makeText(getApplicationContext(),
+                                    "Brak wystarczających danych!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                            mBtn.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                }, 500);
+            }
+        });
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+    }
+
+    public void addProtege() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ProtegesListActivity.this);
+        View mView =  getLayoutInflater().inflate(R.layout.add_dialog, null);
+        final EditText mText = (EditText) mView.findViewById(R.id.addData);
+        final Button mBtn = (Button) mView.findViewById(R.id.addDataBtn);
+
+        DownloadJSON downloadJSON = new DownloadJSON();
+        downloadJSON.execute("https://patronapi.herokuapp.com/proteges");
+
+        mBtn.setVisibility(View.VISIBLE);
+
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                final String id = intent.getStringExtra("patron_id");
+                final JSONArray data = DownloadJSON.tempArray;
+
+                final String protegeName = mText.getText().toString();
+                final String[] splitName;
+
+                splitName = protegeName.split(" ");
+
+                Log.i("Update ", "Init");
+
+                mBtn.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //TODO: There is error with adapter, it doesnt exist while firstname and secondname is outside of func
+                            String firstName = splitName[0];
+                            String secondName = splitName[1];
+
+                            String capitalizeFirstName = firstName.substring(0, 1).toUpperCase()
+                                    + firstName.substring(1).toLowerCase();
+                            String capitalizeSecondName = secondName.substring(0, 1).toUpperCase()
+                                    + secondName.substring(1).toLowerCase();
+
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject jsonPart = data.getJSONObject(i);
+
+                                String tempFirstName = jsonPart.getString("protege_firstname");
+                                String tempLastName = jsonPart.getString("protege_lastname");
+                                String tempID = jsonPart.getString("protege_id");
+                                String currentPatron = jsonPart.getString("protege_patron");
+
+                                Log.i("currentpatron: ", currentPatron);
+
+                                if ((tempFirstName.equals(capitalizeFirstName)) && (tempLastName.equals(capitalizeSecondName)) &&
+                                        ((currentPatron.equals("null")) || currentPatron == null)) {
+                                    Log.i("WENT", "User id: " + tempID + " Protege: " + id);
+
+                                    // TODO: First input isn't working. Only after closing dialog and opening it again, request is send
+                                    AddProtege addProtege = new AddProtege();
+                                    addProtege.execute("https://patronapi.herokuapp.com/proteges/edit/set/" + tempID, id);
+
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                    startActivity(getIntent());
+                                    overridePendingTransition(0, 0);
+                                }
+
+                                //TODO: Something when whole array is mapped, but nothing that matches isnt found
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast toast= Toast.makeText(getApplicationContext(),
+                                    "Brak wystarczających danych!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                            mBtn.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                }, 500);
+            }
+        });
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
     }
 }
-
-
-// TODO: Put this into activity with list of measures
-
-//        Button addExamBtn = (Button) findViewById(R.id.addExamBtn);
-//        addExamBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//
-//        new AlertDialog.Builder(this)
-//                .setIcon(android.R.drawable.ic_dialog_alert)
-//                .setTitle("Chcesz usunąć podopiecznego!")
-//                .setMessage("Czy jesteś pewny/a?")
-//                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(ProtegesListActivity.this, "Podopieczny usunięty!", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .setNegativeButton("Nie", null)
-//                .show();

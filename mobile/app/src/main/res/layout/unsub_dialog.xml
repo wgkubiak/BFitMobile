@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/unsubHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="USUŃ PODOPIECZNEGO"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/removeData"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/rounded_container"
+        android:ems="10"
+        android:gravity="center"
+        android:hint=" Imię i Nazwisko (oddzielone spacją)"
+        android:inputType="textPersonName"
+        android:textColor="@color/textIcons"
+        android:textColorHint="@color/secondaryText"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/removeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+        android:background="@color/failRed"
+        android:text="USUŃ"
+        android:textColor="@android:color/white" />
+</LinearLayout>
