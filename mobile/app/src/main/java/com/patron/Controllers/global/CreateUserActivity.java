@@ -54,8 +54,8 @@ public class CreateUserActivity extends AppCompatActivity {
                 String userFirstName = fistName.getText().toString();
                 String userLastName = lastName.getText().toString();
 
-                if(userMail.length() < 15 && userPassword.length() < 15 && confirm.length() < 15
-                        && userFirstName.length() < 15 && userLastName.length() < 15) {
+                if(userMail.length() <= 15 && userPassword.length() <= 15 && confirm.length() <= 15
+                        && userFirstName.length() <= 15 && userLastName.length() <= 15) {
                     if(!userFirstName.equals("")) {
                         if(!userLastName.equals("")) {
                             if(!userPassword.equals("")) {

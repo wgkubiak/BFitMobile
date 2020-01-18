@@ -43,8 +43,8 @@ public class AddExamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    if(weight.length() < 5 && glucose.length() < 3 && pressure1.length() < 3
-                            && pressure2.length() < 3) {
+                    if(weight.length() <= 5 && glucose.length() <= 3 && pressure1.length() <= 3
+                            && pressure2.length() <= 3) {
                         if(!weight.getText().toString().equals("")) {
                             if(!glucose.getText().toString().equals("")) {
                                 if(!pressure1.getText().toString().equals("")
