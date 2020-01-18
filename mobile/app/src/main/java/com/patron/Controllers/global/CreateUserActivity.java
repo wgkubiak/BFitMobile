@@ -54,60 +54,62 @@ public class CreateUserActivity extends AppCompatActivity {
                 String userFirstName = fistName.getText().toString();
                 String userLastName = lastName.getText().toString();
 
+                if(userMail.length() < 15 && userPassword.length() < 15 && confirm.length() < 15
+                        && userFirstName.length() < 15 && userLastName.length() < 15) {
+                    if(!userFirstName.equals("")) {
+                        if(!userLastName.equals("")) {
+                            if(!userPassword.equals("")) {
+                                if(!confirm.equals("")) {
+                                    if(!userMail.equals("")) {
 
+                                        String capitalizeFirstName = userFirstName.substring(0, 1).toUpperCase()
+                                                + userFirstName.substring(1).toLowerCase();
+                                        String capitalizeLastName = userLastName.substring(0, 1).toUpperCase()
+                                                + userLastName.substring(1).toLowerCase();
 
-
-                if(!userFirstName.equals("")) {
-                    if(!userLastName.equals("")) {
-                        if(!userPassword.equals("")) {
-                            if(!confirm.equals("")) {
-                                if(!userMail.equals("")) {
-
-                                    String capitalizeFirstName = userFirstName.substring(0, 1).toUpperCase()
-                                            + userFirstName.substring(1).toLowerCase();
-                                    String capitalizeLastName = userLastName.substring(0, 1).toUpperCase()
-                                            + userLastName.substring(1).toLowerCase();
-
-                                    if(roleTxt == "Opiekun") {
-                                        if(userPassword.equals(confirm)) {
-                                            PostPatron postPatron = new PostPatron();
-                                            postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
-                                                    userPassword, capitalizeFirstName, capitalizeLastName);
-                                            showToast("Stworzono konto opiekuna!");
-                                            Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
-                                            finish();
-                                            startActivity(intent);
+                                        if(roleTxt == "Opiekun") {
+                                            if(userPassword.equals(confirm)) {
+                                                PostPatron postPatron = new PostPatron();
+                                                postPatron.execute("https://patronapi.herokuapp.com/patrons", userMail,
+                                                        userPassword, capitalizeFirstName, capitalizeLastName);
+                                                showToast("Stworzono konto opiekuna!");
+                                                Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
+                                                finish();
+                                                startActivity(intent);
+                                            } else {
+                                                showToast("Hasła nie są takie same!");
+                                            }
                                         } else {
-                                            showToast("Hasła nie są takie same!");
+                                            if(userPassword.equals(confirm)) {
+                                                PostProtege postProtege = new PostProtege();
+                                                postProtege.execute("https://patronapi.herokuapp.com/proteges", capitalizeFirstName,
+                                                        capitalizeLastName, userMail, userPassword);
+                                                showToast("Stworzono konto podopiecznego!");
+
+                                                Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
+                                                finish();
+                                                startActivity(intent);
+                                            } else {
+                                                showToast("Hasła nie są takie same!");
+                                            }
                                         }
                                     } else {
-                                        if(userPassword.equals(confirm)) {
-                                            PostProtege postProtege = new PostProtege();
-                                            postProtege.execute("https://patronapi.herokuapp.com/proteges", capitalizeFirstName,
-                                                    capitalizeLastName, userMail, userPassword);
-                                            showToast("Stworzono konto podopiecznego!");
-
-                                            Intent intent = new Intent(CreateUserActivity.this, LoginActivity.class);
-                                            finish();
-                                            startActivity(intent);
-                                        } else {
-                                            showToast("Hasła nie są takie same!");
-                                        }
+                                        showToast("Uzupełnij mail-a!");
                                     }
                                 } else {
-                                    showToast("Uzupełnij mail-a!");
+                                    showToast("Powtórz hasło!");
                                 }
                             } else {
-                                showToast("Powtórz hasło!");
+                                showToast("Uzupełnij hasło!");
                             }
                         } else {
-                            showToast("Uzupełnij hasło!");
+                            showToast("Uzupełnij nazwisko!");
                         }
                     } else {
-                        showToast("Uzupełnij nazwisko!");
+                        showToast("Uzupełnij imię!");
                     }
                 } else {
-                    showToast("Uzupełnij imię!");
+                    showToast("Błędna długość danych!");
                 }
             }
         });
