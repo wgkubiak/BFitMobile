@@ -21,10 +21,11 @@ The main characteristic of the app is simplicity. There are two types of account
 
 ## Live
 The first thing that shows up to the visitor is the login screen. From this level it is possible to create a user account of the selected type and to log in.
+
 <br />
 
 <p align="center">
- <img src="https://github.com/wojciechkubiak/opqn-mobile/blob/master/login.png?raw=true"/>
+ <img width="350" src="https://github.com/wojciechkubiak/opqn-mobile/blob/master/login.jpg?raw=true"/>
 </p>
 
 <br />
@@ -33,21 +34,22 @@ Based on the account type, two types of screen can be shown to the user.
 
 <br />
 
-* Supervisor - it allows the analysis of data of proteges. The supervisor has the ability to add new proteges to his group (those who are not already signed) and to remove them.
+* <b>Supervisor</b> - it allows the analysis of data of proteges. The supervisor has the ability to add new proteges to his group (those who are not already signed) and to remove them.
 
 <br />
 
 <p align="center">
-  <img src="https://github.com/wojciechkubiak/opqn-mobile/blob/master/patron.png?raw=true"/>
+  <img width="350" src="https://github.com/wojciechkubiak/opqn-mobile/blob/master/protege.jpg?raw=true"/>
 </p>
+
 <br />
 
-* Protege - Allows you to enter data (once a day), later analyzed by a supervisor. The main idea is "enter your data, come back tomorrow".
+* <b>Protege</b> - Allows you to enter data (once a day), later analyzed by a supervisor. The main idea is "enter your data, come back tomorrow".
 
 <br />
 
 <p align="center">
- <img src="https://github.com/wojciechkubiak/opqn-mobile/blob/master/protege.png?raw=true"/>
+ <img width="350" src="https://github.com/wojciechkubiak/opqn-mobile/blob/master/patron.jpg?raw=true"/>
 </p>
 
 ## How can I install this app
